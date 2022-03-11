@@ -1,10 +1,10 @@
 import { exchangeCodeAsync, makeRedirectUri, useAuthRequest } from "expo-auth-session";
-import Constants from "expo-constants";
 import { StatusBar } from "expo-status-bar";
 import { Button, Platform, StyleSheet, View } from "react-native";
 
-const auth0ClientId = Constants.manifest?.extra?.auth0ClientId as string;
-const auth0Endpoint = Constants.manifest?.extra?.auth0Endpoint as string;
+import AuthProvider from "./src/state/AuthContext";
+import { Auth0 } from "./src/utils/auth0Utils";
+import { saveAccessToken, saveRefreshToken } from "./src/utils/authUtils";
 
 const useProxy = Platform.select({ web: false, default: true });
 const redirectUri = makeRedirectUri({ useProxy });
@@ -13,15 +13,15 @@ export default function App() {
   const [request, , promptAsync] = useAuthRequest(
     {
       redirectUri,
-      clientId: auth0ClientId,
+      clientId: Auth0.CLIENT_ID,
       responseType: "code",
-      scopes: ["openid", "profile", "email", "offline_access"],
+      scopes: Auth0.SCOPES,
       extraParams: {
-        audience: "https://emilioschepis.eu.auth0.com/api/v2/",
+        audience: Auth0.AUDIENCE,
       },
     },
     {
-      authorizationEndpoint: `${auth0Endpoint}/authorize`,
+      authorizationEndpoint: Auth0.ENDPOINT + "/authorize",
     }
   );
 
@@ -42,25 +42,27 @@ export default function App() {
     const tokens = await exchangeCodeAsync(
       {
         code,
-        clientId: auth0ClientId,
+        clientId: Auth0.CLIENT_ID,
         redirectUri,
         extraParams: {
           grant_type: "authorization_code",
           code_verifier: verifier ?? "",
         },
       },
-      { tokenEndpoint: `${auth0Endpoint}/oauth/token` }
+      { tokenEndpoint: Auth0.ENDPOINT + "/oauth/token" }
     );
 
-    // eslint-disable-next-line no-console
-    console.info("Access token:", tokens.accessToken);
+    await saveAccessToken(tokens.accessToken);
+    await saveRefreshToken(tokens.refreshToken!);
   }
 
   return (
-    <View style={styles.container}>
-      <StatusBar style="auto" />
-      <Button disabled={!request} title="Authenticate" onPress={authenticate} />
-    </View>
+    <AuthProvider>
+      <View style={styles.container}>
+        <StatusBar style="auto" />
+        <Button disabled={!request} title="Authenticate" onPress={authenticate} />
+      </View>
+    </AuthProvider>
   );
 }
 
