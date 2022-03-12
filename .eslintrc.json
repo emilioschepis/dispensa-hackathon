@@ -17,5 +17,6 @@
     "simple-import-sort/exports": "warn",
     "@typescript-eslint/ban-types": "off",
     "no-empty-pattern": "off"
-  }
+  },
+  "ignorePatterns": ["src/generated"]
 }

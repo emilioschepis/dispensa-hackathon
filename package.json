@@ -11,7 +11,8 @@
     "build": "tsc --noEmit",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "hasura:console": "hasura console --project hasura"
+    "hasura:console": "hasura console --project hasura",
+    "generate": "graphql-codegen -r dotenv/config --config codegen.yml"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "~1.15.0",
@@ -20,7 +21,6 @@
     "@urql/exchange-auth": "^0.1.7",
     "buffer": "^6.0.3",
     "dayjs": "^1.10.8",
-    "dotenv": "^16.0.0",
     "expo": "~44.0.0",
     "expo-auth-session": "~3.5.0",
     "expo-constants": "~13.0.1",
@@ -38,10 +38,15 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
+    "@graphql-codegen/cli": "2.6.2",
+    "@graphql-codegen/typescript": "2.4.7",
+    "@graphql-codegen/typescript-operations": "2.3.4",
+    "@graphql-codegen/typed-document-node": "2.2.7",
     "@types/react": "~17.0.21",
     "@types/react-native": "~0.64.12",
     "@typescript-eslint/eslint-plugin": "^5.14.0",
     "@typescript-eslint/parser": "^5.14.0",
+    "dotenv": "^16.0.0",
     "eslint": "^8.10.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-universe": "^10.0.0",

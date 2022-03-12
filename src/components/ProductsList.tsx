@@ -1,10 +1,9 @@
 import { FlatList, StyleSheet, Text, View } from "react-native";
 
+import { ProductsQuery } from "../generated/graphql";
+
 type Props = {
-  products: {
-    id: string;
-    name: string;
-  }[];
+  products: ProductsQuery["products"];
 };
 
 const ProductsList = ({ products }: Props) => {

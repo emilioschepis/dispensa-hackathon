@@ -1,0 +1,17 @@
+overwrite: true
+schema:
+  - ${PUBLIC_HASURA_ENDPOINT}:
+      headers:
+        X-Hasura-Admin-Secret: ${HASURA_GRAPHQL_ADMIN_SECRET}
+        X-Hasura-Role: user
+config:
+  scalars:
+    timestamptz: string
+    uuid: string
+documents: "src/graphql/operations/*.graphql"
+generates:
+  src/generated/graphql.ts:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typed-document-node"

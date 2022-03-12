@@ -1,26 +1,16 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
-import { gql, useQuery } from "urql";
+import { useQuery } from "urql";
 
 import ProductsList from "../components/ProductsList";
+import { ProductsDocument } from "../generated/graphql";
 import { RootStackParamList } from "../navigation/navigators/RootStack";
 
 export type ProductsScreenProps = NativeStackScreenProps<RootStackParamList, "Products">;
 type Props = {} & ProductsScreenProps;
 
-const ProductsQuery = gql`
-  query Products {
-    products {
-      id
-      name
-    }
-  }
-`;
-
 const ProductsScreen = ({}: Props) => {
-  const [{ data, error, fetching }] = useQuery({
-    query: ProductsQuery,
-  });
+  const [{ data, error, fetching }] = useQuery({ query: ProductsDocument });
 
   return (
     <View style={styles.container}>

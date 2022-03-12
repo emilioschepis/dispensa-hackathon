@@ -1,26 +1,15 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { ActivityIndicator, Button, StyleSheet, Text, View } from "react-native";
-import { gql, useQuery } from "urql";
+import { useQuery } from "urql";
 
+import { UsersDocument } from "../generated/graphql";
 import { RootStackParamList } from "../navigation/navigators/RootStack";
 
 export type HomeScreenProps = NativeStackScreenProps<RootStackParamList, "Home">;
 type Props = {} & HomeScreenProps;
 
-const UsersQuery = gql`
-  query Users {
-    users(limit: 1) {
-      id
-      username
-      email
-    }
-  }
-`;
-
 const HomeScreen = ({ navigation }: Props) => {
-  const [{ data, error, fetching }] = useQuery({
-    query: UsersQuery,
-  });
+  const [{ data, error, fetching }] = useQuery({ query: UsersDocument });
 
   return (
     <View style={styles.container}>

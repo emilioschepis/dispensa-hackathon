@@ -1,0 +1,7 @@
+query Users {
+  users(limit: 1) {
+    id
+    username
+    email
+  }
+}
