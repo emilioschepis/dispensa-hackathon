@@ -1,25 +1,25 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { ActivityIndicator, Button, StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 import { gql, useQuery } from "urql";
 
+import ProductsList from "../components/ProductsList";
 import { RootStackParamList } from "../navigation/navigators/RootStack";
 
-export type HomeScreenProps = NativeStackScreenProps<RootStackParamList, "Home">;
-type Props = {} & HomeScreenProps;
+export type ProductsScreenProps = NativeStackScreenProps<RootStackParamList, "Products">;
+type Props = {} & ProductsScreenProps;
 
-const UsersQuery = gql`
-  query Users {
-    users(limit: 1) {
+const ProductsQuery = gql`
+  query Products {
+    products {
       id
-      username
-      email
+      name
     }
   }
 `;
 
-const HomeScreen = ({ navigation }: Props) => {
+const ProductsScreen = ({}: Props) => {
   const [{ data, error, fetching }] = useQuery({
-    query: UsersQuery,
+    query: ProductsQuery,
   });
 
   return (
@@ -29,9 +29,8 @@ const HomeScreen = ({ navigation }: Props) => {
       ) : fetching || !data ? (
         <ActivityIndicator />
       ) : (
-        <Text>Your username is {data.users[0].username}</Text>
+        <ProductsList products={data.products} />
       )}
-      <Button title="Products" onPress={() => navigation.navigate("Products")} />
     </View>
   );
 };
@@ -44,4 +43,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+export default ProductsScreen;

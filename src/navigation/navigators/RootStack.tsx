@@ -2,11 +2,13 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import AuthScreen from "../../screens/AuthScreen";
 import HomeScreen from "../../screens/HomeScreen";
+import ProductsScreen from "../../screens/ProductsScreen";
 import { useAuth } from "../../state/AuthContext";
 
 export type RootStackParamList = {
   Home: undefined;
   Auth: undefined;
+  Products: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -23,6 +25,7 @@ const RootStack = () => {
       {auth.state.state === "authenticated" ? (
         <>
           <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Products" component={ProductsScreen} />
         </>
       ) : (
         <>
