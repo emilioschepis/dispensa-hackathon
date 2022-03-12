@@ -4,13 +4,15 @@ import AuthScreen from "../../screens/AuthScreen";
 import CreateProductScreen from "../../screens/CreateProductScreen";
 import HomeScreen from "../../screens/HomeScreen";
 import ProductsScreen from "../../screens/ProductsScreen";
+import ScannerScreen from "../../screens/ScannerScreen";
 import { useAuth } from "../../state/AuthContext";
 
 export type RootStackParamList = {
   Home: undefined;
   Auth: undefined;
   Products: undefined;
-  CreateProduct: undefined;
+  CreateProduct?: { code: string | undefined };
+  Scanner: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -29,6 +31,7 @@ const RootStack = () => {
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Products" component={ProductsScreen} />
           <Stack.Screen name="CreateProduct" component={CreateProductScreen} />
+          <Stack.Screen name="Scanner" component={ScannerScreen} />
         </>
       ) : (
         <>

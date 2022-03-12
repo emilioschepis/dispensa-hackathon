@@ -34,14 +34,16 @@
     "react-native-safe-area-context": "3.3.2",
     "react-native-screens": "~3.10.1",
     "react-native-web": "0.17.1",
-    "urql": "^2.2.0"
+    "urql": "^2.2.0",
+    "expo-barcode-scanner": "~11.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
+    "@expo/config": "^6.0.19",
     "@graphql-codegen/cli": "2.6.2",
+    "@graphql-codegen/typed-document-node": "2.2.7",
     "@graphql-codegen/typescript": "2.4.7",
     "@graphql-codegen/typescript-operations": "2.3.4",
-    "@graphql-codegen/typed-document-node": "2.2.7",
     "@types/react": "~17.0.21",
     "@types/react-native": "~0.64.12",
     "@typescript-eslint/eslint-plugin": "^5.14.0",

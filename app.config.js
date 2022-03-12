@@ -1,6 +1,9 @@
 import "dotenv/config";
 
 export default {
+  /**
+   * @type {import('@expo/config').ExpoConfig}
+   */
   expo: {
     name: "dispensa",
     slug: "dispensa",
@@ -19,12 +22,16 @@ export default {
     assetBundlePatterns: ["**/*"],
     ios: {
       supportsTablet: false,
+      infoPlist: {
+        NSCameraUsageDescription: "We use the camera to allow you to scan product barcodes",
+      },
     },
     android: {
       adaptiveIcon: {
         foregroundImage: "./assets/adaptive-icon.png",
         backgroundColor: "#FFFFFF",
       },
+      permissions: ["CAMERA"],
     },
     web: {
       favicon: "./assets/favicon.png",
