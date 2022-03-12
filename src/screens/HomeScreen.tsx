@@ -21,6 +21,7 @@ const HomeScreen = ({ navigation }: Props) => {
         <Text>Your username is {data.users[0].username}</Text>
       )}
       <Button title="Products" onPress={() => navigation.navigate("Products")} />
+      <Button title="Inventory" onPress={() => navigation.navigate("Inventory")} />
     </View>
   );
 };

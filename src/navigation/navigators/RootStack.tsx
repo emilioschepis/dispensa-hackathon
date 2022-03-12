@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import AuthScreen from "../../screens/AuthScreen";
 import CreateProductScreen from "../../screens/CreateProductScreen";
 import HomeScreen from "../../screens/HomeScreen";
+import InventoryScreen from "../../screens/InventoryScreen";
 import ProductsScreen from "../../screens/ProductsScreen";
 import ScannerScreen from "../../screens/ScannerScreen";
 import UpdateProductScreen from "../../screens/UpdateProductScreen";
@@ -15,6 +16,7 @@ export type RootStackParamList = {
   CreateProduct?: { code?: string };
   UpdateProduct: { id: string; code?: string };
   Scanner: { source: { screen: "CreateProduct" } | { screen: "UpdateProduct"; id: string } };
+  Inventory: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -35,6 +37,7 @@ const RootStack = () => {
           <Stack.Screen name="CreateProduct" component={CreateProductScreen} />
           <Stack.Screen name="UpdateProduct" component={UpdateProductScreen} />
           <Stack.Screen name="Scanner" component={ScannerScreen} />
+          <Stack.Screen name="Inventory" component={InventoryScreen} />
         </>
       ) : (
         <>

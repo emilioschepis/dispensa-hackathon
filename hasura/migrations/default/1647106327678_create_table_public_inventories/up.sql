@@ -1,0 +1,2 @@
+CREATE TABLE "public"."inventories" ("id" uuid NOT NULL DEFAULT gen_random_uuid(), "user_id" text NOT NULL, "created_at" timestamptz NOT NULL DEFAULT now(), "name" text NOT NULL, PRIMARY KEY ("id") , FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON UPDATE restrict ON DELETE cascade, UNIQUE ("user_id", "name"));COMMENT ON TABLE "public"."inventories" IS E'Inventories keep track of the availability of products for an user.';
+CREATE EXTENSION IF NOT EXISTS pgcrypto;

@@ -1,0 +1,23 @@
+table:
+  name: inventories
+  schema: public
+insert_permissions:
+- permission:
+    backend_only: false
+    check: {}
+    columns:
+    - name
+    set:
+      user_id: x-hasura-User-Id
+  role: user
+select_permissions:
+- permission:
+    columns:
+    - name
+    - user_id
+    - created_at
+    - id
+    filter:
+      user_id:
+        _eq: X-Hasura-User-Id
+  role: user

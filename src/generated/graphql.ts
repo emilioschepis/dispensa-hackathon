@@ -48,6 +48,66 @@ export type String_Comparison_Exp = {
   _similar?: InputMaybe<Scalars['String']>;
 };
 
+/**
+ * Inventories keep track of the availability of products for an user.
+ *
+ *
+ * columns and relationships of "inventories"
+ *
+ */
+export type Inventories = {
+  __typename?: 'inventories';
+  created_at: Scalars['timestamptz'];
+  id: Scalars['uuid'];
+  name: Scalars['String'];
+  user_id: Scalars['String'];
+};
+
+/** Boolean expression to filter rows from the table "inventories". All fields are combined with a logical 'AND'. */
+export type Inventories_Bool_Exp = {
+  _and?: InputMaybe<Array<Inventories_Bool_Exp>>;
+  _not?: InputMaybe<Inventories_Bool_Exp>;
+  _or?: InputMaybe<Array<Inventories_Bool_Exp>>;
+  created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  id?: InputMaybe<Uuid_Comparison_Exp>;
+  name?: InputMaybe<String_Comparison_Exp>;
+  user_id?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** input type for inserting data into table "inventories" */
+export type Inventories_Insert_Input = {
+  name?: InputMaybe<Scalars['String']>;
+};
+
+/** response of any mutation on the table "inventories" */
+export type Inventories_Mutation_Response = {
+  __typename?: 'inventories_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Inventories>;
+};
+
+/** Ordering options when selecting data from "inventories". */
+export type Inventories_Order_By = {
+  created_at?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  name?: InputMaybe<Order_By>;
+  user_id?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "inventories" */
+export enum Inventories_Select_Column {
+  /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Name = 'name',
+  /** column name */
+  UserId = 'user_id'
+}
+
 /** mutation root */
 export type Mutation_Root = {
   __typename?: 'mutation_root';
@@ -55,6 +115,10 @@ export type Mutation_Root = {
   delete_products?: Maybe<Products_Mutation_Response>;
   /** delete single row from the table: "products" */
   delete_products_by_pk?: Maybe<Products>;
+  /** insert data into the table: "inventories" */
+  insert_inventories?: Maybe<Inventories_Mutation_Response>;
+  /** insert a single row into the table: "inventories" */
+  insert_inventories_one?: Maybe<Inventories>;
   /** insert data into the table: "products" */
   insert_products?: Maybe<Products_Mutation_Response>;
   /** insert a single row into the table: "products" */
@@ -75,6 +139,18 @@ export type Mutation_RootDelete_ProductsArgs = {
 /** mutation root */
 export type Mutation_RootDelete_Products_By_PkArgs = {
   id: Scalars['uuid'];
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_InventoriesArgs = {
+  objects: Array<Inventories_Insert_Input>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Inventories_OneArgs = {
+  object: Inventories_Insert_Input;
 };
 
 
@@ -226,6 +302,10 @@ export enum Products_Update_Column {
 
 export type Query_Root = {
   __typename?: 'query_root';
+  /** fetch data from the table: "inventories" */
+  inventories: Array<Inventories>;
+  /** fetch data from the table: "inventories" using primary key columns */
+  inventories_by_pk?: Maybe<Inventories>;
   /** fetch data from the table: "products" */
   products: Array<Products>;
   /** fetch data from the table: "products" using primary key columns */
@@ -234,6 +314,20 @@ export type Query_Root = {
   users: Array<Users>;
   /** fetch data from the table: "users" using primary key columns */
   users_by_pk?: Maybe<Users>;
+};
+
+
+export type Query_RootInventoriesArgs = {
+  distinct_on?: InputMaybe<Array<Inventories_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Inventories_Order_By>>;
+  where?: InputMaybe<Inventories_Bool_Exp>;
+};
+
+
+export type Query_RootInventories_By_PkArgs = {
+  id: Scalars['uuid'];
 };
 
 
@@ -266,6 +360,10 @@ export type Query_RootUsers_By_PkArgs = {
 
 export type Subscription_Root = {
   __typename?: 'subscription_root';
+  /** fetch data from the table: "inventories" */
+  inventories: Array<Inventories>;
+  /** fetch data from the table: "inventories" using primary key columns */
+  inventories_by_pk?: Maybe<Inventories>;
   /** fetch data from the table: "products" */
   products: Array<Products>;
   /** fetch data from the table: "products" using primary key columns */
@@ -274,6 +372,20 @@ export type Subscription_Root = {
   users: Array<Users>;
   /** fetch data from the table: "users" using primary key columns */
   users_by_pk?: Maybe<Users>;
+};
+
+
+export type Subscription_RootInventoriesArgs = {
+  distinct_on?: InputMaybe<Array<Inventories_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Inventories_Order_By>>;
+  where?: InputMaybe<Inventories_Bool_Exp>;
+};
+
+
+export type Subscription_RootInventories_By_PkArgs = {
+  id: Scalars['uuid'];
 };
 
 
@@ -365,6 +477,11 @@ export type Uuid_Comparison_Exp = {
   _nin?: InputMaybe<Array<Scalars['uuid']>>;
 };
 
+export type CreateDefaultInventoryMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CreateDefaultInventoryMutation = { __typename?: 'mutation_root', insert_inventories_one?: { __typename?: 'inventories', id: string } | null };
+
 export type CreateProductMutationVariables = Exact<{
   name: Scalars['String'];
   code?: InputMaybe<Scalars['String']>;
@@ -379,6 +496,11 @@ export type DeleteProductMutationVariables = Exact<{
 
 
 export type DeleteProductMutation = { __typename?: 'mutation_root', delete_products_by_pk?: { __typename?: 'products', id: string } | null };
+
+export type InventoriesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type InventoriesQuery = { __typename?: 'query_root', inventories: Array<{ __typename?: 'inventories', id: string }> };
 
 export type ProductToUpdateQueryVariables = Exact<{
   id: Scalars['uuid'];
@@ -407,8 +529,10 @@ export type UsersQueryVariables = Exact<{ [key: string]: never; }>;
 export type UsersQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', id: string, username: string, email: string }> };
 
 
+export const CreateDefaultInventoryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateDefaultInventory"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"insert_inventories_one"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"object"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"name"},"value":{"kind":"StringValue","value":"default","block":false}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<CreateDefaultInventoryMutation, CreateDefaultInventoryMutationVariables>;
 export const CreateProductDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateProduct"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"name"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"code"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"insert_products_one"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"object"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"name"},"value":{"kind":"Variable","name":{"kind":"Name","value":"name"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"code"},"value":{"kind":"Variable","name":{"kind":"Name","value":"code"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<CreateProductMutation, CreateProductMutationVariables>;
 export const DeleteProductDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DeleteProduct"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"delete_products_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<DeleteProductMutation, DeleteProductMutationVariables>;
+export const InventoriesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Inventories"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"inventories"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<InventoriesQuery, InventoriesQueryVariables>;
 export const ProductToUpdateDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ProductToUpdate"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"products_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"code"}}]}}]}}]} as unknown as DocumentNode<ProductToUpdateQuery, ProductToUpdateQueryVariables>;
 export const ProductsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Products"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"products"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"code"}}]}}]}}]} as unknown as DocumentNode<ProductsQuery, ProductsQueryVariables>;
 export const UpdateProductDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateProduct"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"name"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"code"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"update_products_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pk_columns"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"name"},"value":{"kind":"Variable","name":{"kind":"Name","value":"name"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"code"},"value":{"kind":"Variable","name":{"kind":"Name","value":"code"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]} as unknown as DocumentNode<UpdateProductMutation, UpdateProductMutationVariables>;
