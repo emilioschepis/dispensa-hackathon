@@ -11,8 +11,12 @@ type Dispatch = (action: Action) => void;
 const initialState: State = { state: "loading" };
 const Context = React.createContext<{ state: State; dispatch: Dispatch } | undefined>(undefined);
 
-function reducer(state: State, action: Action) {
+function reducer(state: State, action: Action): State {
   switch (action.type) {
+    case "setAuthenticated":
+      return { state: "authenticated" };
+    case "setUnauthenticated":
+      return { state: "unauthenticated" };
     default:
       return state;
   }
