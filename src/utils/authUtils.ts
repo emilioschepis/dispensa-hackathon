@@ -15,7 +15,7 @@ export async function getAccessToken(): Promise<string | null> {
   }
 }
 
-export async function verifyAccessToken(token: string): Promise<boolean> {
+export function verifyAccessToken(token: string): boolean {
   const payload = getJwtPayload(token);
 
   if (!payload) return false;

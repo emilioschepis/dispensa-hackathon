@@ -17,6 +17,7 @@
     "@react-native-async-storage/async-storage": "~1.15.0",
     "@react-navigation/native": "^6.0.8",
     "@react-navigation/native-stack": "^6.5.0",
+    "@urql/exchange-auth": "^0.1.7",
     "buffer": "^6.0.3",
     "dayjs": "^1.10.8",
     "dotenv": "^16.0.0",
@@ -26,12 +27,14 @@
     "expo-random": "~12.1.1",
     "expo-secure-store": "~11.1.0",
     "expo-status-bar": "~1.2.0",
+    "graphql": "^16.3.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-native": "0.64.3",
     "react-native-safe-area-context": "3.3.2",
     "react-native-screens": "~3.10.1",
-    "react-native-web": "0.17.1"
+    "react-native-web": "0.17.1",
+    "urql": "^2.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

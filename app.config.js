@@ -32,6 +32,7 @@ export default {
     extra: {
       auth0ClientId: process.env.PUBLIC_AUTH0_CLIENT_ID,
       auth0Endpoint: process.env.PUBLIC_AUTH0_ENDPOINT,
+      hasuraEndpoint: process.env.PUBLIC_HASURA_ENDPOINT,
     },
   },
 };
