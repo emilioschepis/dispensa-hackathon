@@ -12,13 +12,14 @@ type Props = {} & CreateProductScreenProps;
 const CreateProductScreen = ({ navigation }: Props) => {
   const [{ fetching }, _createProduct] = useMutation(CreateProductDocument);
   const [name, setName] = useState("");
+  const [code, setCode] = useState("");
   const inputRef = useRef<TextInput>(null);
 
-  async function createProduct(name: string) {
+  async function createProduct(name: string, code: string) {
     inputRef.current?.blur();
 
     try {
-      await _createProduct({ name });
+      await _createProduct({ name, code: code.length > 0 ? code : null });
       navigation.navigate("Products");
     } catch (error) {}
   }
@@ -30,7 +31,8 @@ const CreateProductScreen = ({ navigation }: Props) => {
   return (
     <View style={styles.container}>
       <TextInput ref={inputRef} style={styles.input} value={name} onChangeText={setName} />
-      <Button disabled={fetching || name.length === 0} title="Create" onPress={() => createProduct(name)} />
+      <TextInput style={styles.input} value={code} onChangeText={setCode} />
+      <Button disabled={fetching || name.length === 0} title="Create" onPress={() => createProduct(name, code)} />
     </View>
   );
 };
@@ -45,6 +47,7 @@ const styles = StyleSheet.create({
     padding: 16,
     backgroundColor: "white",
     width: "100%",
+    marginBottom: 8,
   },
 });
 

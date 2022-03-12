@@ -6,6 +6,7 @@ insert_permissions:
     backend_only: false
     check: {}
     columns:
+    - code
     - name
     set:
       user_id: x-hasura-User-Id
@@ -13,10 +14,11 @@ insert_permissions:
 select_permissions:
 - permission:
     columns:
-    - name
-    - user_id
+    - code
     - created_at
     - id
+    - name
+    - user_id
     filter:
       user_id:
         _eq: X-Hasura-User-Id
@@ -25,6 +27,7 @@ update_permissions:
 - permission:
     check: null
     columns:
+    - code
     - name
     filter:
       user_id:

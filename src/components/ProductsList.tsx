@@ -13,7 +13,11 @@ const ProductsList = ({ products }: Props) => {
       contentContainerStyle={styles.contentContainer}
       data={products}
       keyExtractor={(item) => item.id}
-      renderItem={({ item }) => <Text>{item.name}</Text>}
+      renderItem={({ item }) => (
+        <Text>
+          {item.name} {item.code ? `(${item.code})` : null}
+        </Text>
+      )}
       ListEmptyComponent={
         <View style={styles.emptyContainer}>
           <Text>No products</Text>
