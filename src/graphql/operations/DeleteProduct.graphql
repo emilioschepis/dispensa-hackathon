@@ -1,0 +1,5 @@
+mutation DeleteProduct($id: uuid!) {
+  delete_products_by_pk(id: $id) {
+    id
+  }
+}

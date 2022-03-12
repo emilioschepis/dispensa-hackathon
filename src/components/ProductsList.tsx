@@ -1,7 +1,8 @@
 import { useNavigation } from "@react-navigation/native";
-import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
+import { Button, FlatList, Pressable, StyleSheet, Text, View } from "react-native";
+import { useMutation } from "urql";
 
-import { ProductsQuery } from "../generated/graphql";
+import { DeleteProductDocument, ProductsQuery } from "../generated/graphql";
 import { ProductsScreenProps } from "../screens/ProductsScreen";
 
 type Props = {
@@ -10,6 +11,7 @@ type Props = {
 
 const ProductsList = ({ products }: Props) => {
   const navigation = useNavigation<ProductsScreenProps["navigation"]>();
+  const [{ fetching: deleting }, deleteProduct] = useMutation(DeleteProductDocument);
 
   return (
     <FlatList
@@ -25,6 +27,7 @@ const ProductsList = ({ products }: Props) => {
           <Text>
             {item.name} {item.code ? `(${item.code})` : null}
           </Text>
+          <Button title="Delete" disabled={deleting} onPress={() => deleteProduct({ id: item.id })} />
         </Pressable>
       )}
       ListEmptyComponent={
