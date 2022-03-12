@@ -1,5 +1,5 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator, Button, StyleSheet, Text, View } from "react-native";
 import { useQuery } from "urql";
 
 import ProductsList from "../components/ProductsList";
@@ -9,7 +9,7 @@ import { RootStackParamList } from "../navigation/navigators/RootStack";
 export type ProductsScreenProps = NativeStackScreenProps<RootStackParamList, "Products">;
 type Props = {} & ProductsScreenProps;
 
-const ProductsScreen = ({}: Props) => {
+const ProductsScreen = ({ navigation }: Props) => {
   const [{ data, error, fetching }] = useQuery({ query: ProductsDocument });
 
   return (
@@ -19,7 +19,10 @@ const ProductsScreen = ({}: Props) => {
       ) : fetching || !data ? (
         <ActivityIndicator />
       ) : (
-        <ProductsList products={data.products} />
+        <>
+          <ProductsList products={data.products} />
+          <Button title="Add product" onPress={() => navigation.navigate("CreateProduct")} />
+        </>
       )}
     </View>
   );
