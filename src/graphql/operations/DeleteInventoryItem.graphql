@@ -1,0 +1,6 @@
+mutation DeleteInventoryItem($inventoryId: uuid!, $productId: uuid!) {
+  delete_inventory_products_by_pk(inventory_id: $inventoryId, product_id: $productId) {
+    product_id
+    inventory_id
+  }
+}

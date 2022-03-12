@@ -1,0 +1,34 @@
+{
+  "Screen": {
+    "scope": "typescriptreact",
+    "prefix": "screen",
+    "body": [
+      "import { NativeStackScreenProps } from \"@react-navigation/native-stack\";",
+      "import { StyleSheet, View } from \"react-native\";",
+      "",
+      "import { ${2:Navigator}ParamList } from \"../navigation/navigators/${2}\";",
+      "",
+      "export type ${1:Name}ScreenProps = NativeStackScreenProps<${2}ParamList, \"${1}\">;",
+      "type Props = {} & ${1}ScreenProps;",
+      "",
+      "const ${1}Screen = ({ navigation }: Props) => {",
+      "  return (",
+      "    <View style={styles.container}>",
+      "      <></>",
+      "    </View>",
+      "  );",
+      "};",
+      "",
+      "const styles = StyleSheet.create({",
+      "  container: {",
+      "    flex: 1,",
+      "    justifyContent: \"center\",",
+      "    alignItems: \"center\",",
+      "  },",
+      "});",
+      "",
+      "export default ${1}Screen;",
+      ""
+    ]
+  }
+}

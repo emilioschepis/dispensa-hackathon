@@ -1,0 +1,10 @@
+query ProductsInInventory($id: uuid!) {
+  inventory_products(where: { inventory_id: { _eq: $id } }) {
+    quantity
+    product {
+      id
+      name
+      code
+    }
+  }
+}

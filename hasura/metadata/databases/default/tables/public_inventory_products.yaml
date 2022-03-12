@@ -1,0 +1,50 @@
+table:
+  name: inventory_products
+  schema: public
+object_relationships:
+- name: inventory
+  using:
+    foreign_key_constraint_on: inventory_id
+- name: product
+  using:
+    foreign_key_constraint_on: product_id
+insert_permissions:
+- permission:
+    backend_only: false
+    check:
+      inventory:
+        user_id:
+          _eq: X-Hasura-User-Id
+    columns:
+    - inventory_id
+    - product_id
+    - quantity
+  role: user
+select_permissions:
+- permission:
+    columns:
+    - quantity
+    - inventory_id
+    - product_id
+    filter:
+      inventory:
+        user_id:
+          _eq: X-Hasura-User-Id
+  role: user
+update_permissions:
+- permission:
+    check: null
+    columns:
+    - quantity
+    filter:
+      inventory:
+        user_id:
+          _eq: X-Hasura-User-Id
+  role: user
+delete_permissions:
+- permission:
+    filter:
+      inventory:
+        user_id:
+          _eq: X-Hasura-User-Id
+  role: user
