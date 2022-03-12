@@ -10,12 +10,21 @@ type Props = {} & ScannerScreenProps;
 
 const BARCODE_TYPES: string[] = [BarCodeScanner.Constants.BarCodeType.qr, BarCodeScanner.Constants.BarCodeType.codabar];
 
-const ScannerScreen = ({ navigation }: Props) => {
+const ScannerScreen = ({ navigation, route }: Props) => {
   const [isScanning, setScanning] = useState(true);
 
   async function onBarCodeScanned(params: BarCodeEvent) {
     setScanning(false);
-    navigation.navigate("CreateProduct", { code: params.data });
+
+    if (!route.params) return;
+    switch (route.params.source.screen) {
+      case "CreateProduct":
+        navigation.navigate("CreateProduct", { code: params.data });
+        break;
+      case "UpdateProduct":
+        navigation.navigate("UpdateProduct", { id: route.params.source.id, code: params.data });
+        break;
+    }
   }
 
   return (

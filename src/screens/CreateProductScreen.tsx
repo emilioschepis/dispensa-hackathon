@@ -31,11 +31,11 @@ const CreateProductScreen = ({ navigation, route }: Props) => {
       if (!status) return;
 
       if (status.granted) {
-        navigation.navigate("Scanner");
+        navigation.navigate("Scanner", { source: { screen: "CreateProduct" } });
       } else if (status.canAskAgain) {
         const newPermissions = await requestPermission();
         if (newPermissions.granted) {
-          navigation.navigate("Scanner");
+          navigation.navigate("Scanner", { source: { screen: "CreateProduct" } });
         }
       }
     } catch (error) {}
