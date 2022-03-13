@@ -1,7 +1,0 @@
-query ProductToUpdate($id: uuid!) {
-  products_by_pk(id: $id) {
-    id
-    name
-    code
-  }
-}

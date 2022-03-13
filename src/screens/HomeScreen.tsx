@@ -1,5 +1,5 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { ActivityIndicator, Button, StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 import { useQuery } from "urql";
 
 import { UsersDocument } from "../generated/graphql";
@@ -20,8 +20,6 @@ const HomeScreen = ({ navigation }: Props) => {
       ) : (
         <Text>Your username is {data.users[0].username}</Text>
       )}
-      <Button title="Products" onPress={() => navigation.navigate("Products")} />
-      <Button title="Inventory" onPress={() => navigation.navigate("Inventory")} />
     </View>
   );
 };

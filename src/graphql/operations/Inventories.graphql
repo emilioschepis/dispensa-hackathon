@@ -1,5 +1,0 @@
-query Inventories {
-  inventories {
-    id
-  }
-}

@@ -1,7 +1,0 @@
-query Products {
-  products {
-    id
-    name
-    code
-  }
-}

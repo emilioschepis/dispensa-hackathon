@@ -1,5 +1,0 @@
-mutation CreateProduct($name: String!, $code: String) {
-  insert_products_one(object: { name: $name, code: $code }) {
-    id
-  }
-}
