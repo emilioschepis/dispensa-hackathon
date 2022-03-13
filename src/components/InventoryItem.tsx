@@ -1,8 +1,9 @@
+import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
 import { useMutation } from "urql";
 
-import { InventoryItemQuery, UpdateItemDocument } from "../generated/graphql";
+import { DeleteItemDocument, InventoryItemQuery, UpdateItemDocument } from "../generated/graphql";
 import { useInventoryId } from "../state/InventoryContext";
 
 type Props = {
@@ -10,23 +11,36 @@ type Props = {
 };
 
 const InventoryItem = ({ item }: Props) => {
+  const navigation = useNavigation();
   const inventoryId = useInventoryId();
   const [quantity, setQuantity] = useState(item.quantity);
-  const [{ fetching }, updateItem] = useMutation(UpdateItemDocument);
+  const [{ fetching: updating }, updateItem] = useMutation(UpdateItemDocument);
+  const [{ fetching: deleting }, _deleteItem] = useMutation(DeleteItemDocument);
+
+  async function deleteItem() {
+    const response = await _deleteItem({ inventoryId, productId: item.product.id });
+    if (response.data && navigation.canGoBack()) {
+      navigation.goBack();
+    }
+  }
 
   return (
     <View style={styles.container}>
       <Text>{item.product.name}</Text>
       <View style={styles.quantity}>
-        <Button title="-" disabled={fetching || quantity <= 1} onPress={() => setQuantity((q) => q - 1)} />
+        <Button title="-" disabled={updating || deleting || quantity <= 0} onPress={() => setQuantity((q) => q - 1)} />
         <Text>{quantity}</Text>
-        <Button title="+" disabled={fetching} onPress={() => setQuantity((q) => q + 1)} />
+        <Button title="+" disabled={updating || deleting} onPress={() => setQuantity((q) => q + 1)} />
       </View>
-      <Button
-        title="Save"
-        disabled={fetching}
-        onPress={() => updateItem({ inventoryId, productId: item.product.id, quantity })}
-      />
+      {quantity === 0 ? (
+        <Button title="Delete" disabled={updating || deleting} onPress={() => deleteItem()} />
+      ) : (
+        <Button
+          title="Save"
+          disabled={updating || deleting}
+          onPress={() => updateItem({ inventoryId, productId: item.product.id, quantity })}
+        />
+      )}
     </View>
   );
 };
