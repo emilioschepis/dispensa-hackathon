@@ -1,5 +1,5 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator, Button, StyleSheet, Text, View } from "react-native";
 import { useQuery } from "urql";
 
 import InventoryItemsList from "../components/InventoryItemsList";
@@ -21,7 +21,10 @@ const HomeScreen = ({ navigation }: Props) => {
       ) : fetching || !data ? (
         <ActivityIndicator />
       ) : (
-        <InventoryItemsList items={data.items} />
+        <>
+          <Button title="Search" onPress={() => navigation.navigate("Search")} />
+          <InventoryItemsList items={data.items} />
+        </>
       )}
     </View>
   );
