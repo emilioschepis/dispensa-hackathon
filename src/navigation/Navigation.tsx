@@ -1,6 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 
-import RootStack from "./navigators/RootStack";
+import RootStack, { RootStackParamList } from "./navigators/RootStack";
 
 const Navigation = () => {
   return (
@@ -9,5 +9,11 @@ const Navigation = () => {
     </NavigationContainer>
   );
 };
+
+declare global {
+  namespace ReactNavigation {
+    interface RootParamList extends RootStackParamList {}
+  }
+}
 
 export default Navigation;

@@ -1,11 +1,12 @@
+import { NavigatorScreenParams } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import AuthScreen from "../../screens/AuthScreen";
 import { useAuth } from "../../state/AuthContext";
-import MainStack from "./MainStack";
+import MainStack, { MainStackParamList } from "./MainStack";
 
 export type RootStackParamList = {
-  Main: undefined;
+  Main: NavigatorScreenParams<MainStackParamList>;
   Auth: undefined;
 };
 

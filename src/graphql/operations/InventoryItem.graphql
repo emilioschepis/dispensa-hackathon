@@ -1,0 +1,10 @@
+query InventoryItem($inventoryId: uuid!, $productId: uuid!) {
+  item: inventory_items_by_pk(inventory_id: $inventoryId, product_id: $productId) {
+    quantity
+    product {
+      id
+      name
+      code
+    }
+  }
+}

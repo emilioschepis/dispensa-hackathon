@@ -1,4 +1,6 @@
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { useCallback } from "react";
+import { FlatList, ListRenderItem, Pressable, StyleSheet, Text, View } from "react-native";
 
 import { ItemsInInventoryQuery } from "../generated/graphql";
 
@@ -17,21 +19,30 @@ const EmptyInventory = () => {
 };
 
 const InventoryItem = ({ item }: { item: Props["items"][number] }) => {
+  const navigation = useNavigation();
+
   return (
-    <View style={styles.item}>
-      <Text>
-        {item.quantity}&times; {item.product.name}
-      </Text>
-    </View>
+    <Pressable onPress={() => navigation.navigate("Main", { screen: "Item", params: { productId: item.product.id } })}>
+      <View style={styles.item}>
+        <Text>
+          {item.quantity}&times; {item.product.name}
+        </Text>
+      </View>
+    </Pressable>
   );
 };
 
 const InventoryItemsList = ({ items }: Props) => {
+  const renderItem = useCallback<ListRenderItem<Props["items"][number]>>(
+    ({ item }) => <InventoryItem item={item} />,
+    []
+  );
+
   return (
     <FlatList
       data={items}
       keyExtractor={(item) => item.product.id}
-      renderItem={InventoryItem}
+      renderItem={renderItem}
       ListEmptyComponent={EmptyInventory}
       style={styles.container}
       contentContainerStyle={styles.contentContainer}
