@@ -26,6 +26,7 @@ export default {
       infoPlist: {
         NSCameraUsageDescription: "We use the camera to allow you to scan product barcodes",
       },
+      bundleIdentifier: "com.emilioschepis.dispensa",
     },
     android: {
       adaptiveIcon: {
@@ -33,6 +34,7 @@ export default {
         backgroundColor: "#FFFFFF",
       },
       permissions: ["CAMERA"],
+      package: "com.emilioschepis.dispensa",
     },
     web: {
       favicon: "./assets/favicon.png",
