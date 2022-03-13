@@ -130,11 +130,11 @@ export enum Inventories_Select_Column {
  * This table tracks the availability of products in an inventory.
  *
  *
- * columns and relationships of "inventory_products"
+ * columns and relationships of "inventory_items"
  *
  */
-export type Inventory_Products = {
-  __typename?: 'inventory_products';
+export type Inventory_Items = {
+  __typename?: 'inventory_items';
   /** An object relationship */
   inventory: Inventories;
   inventory_id: Scalars['uuid'];
@@ -144,11 +144,11 @@ export type Inventory_Products = {
   quantity: Scalars['Int'];
 };
 
-/** Boolean expression to filter rows from the table "inventory_products". All fields are combined with a logical 'AND'. */
-export type Inventory_Products_Bool_Exp = {
-  _and?: InputMaybe<Array<Inventory_Products_Bool_Exp>>;
-  _not?: InputMaybe<Inventory_Products_Bool_Exp>;
-  _or?: InputMaybe<Array<Inventory_Products_Bool_Exp>>;
+/** Boolean expression to filter rows from the table "inventory_items". All fields are combined with a logical 'AND'. */
+export type Inventory_Items_Bool_Exp = {
+  _and?: InputMaybe<Array<Inventory_Items_Bool_Exp>>;
+  _not?: InputMaybe<Inventory_Items_Bool_Exp>;
+  _or?: InputMaybe<Array<Inventory_Items_Bool_Exp>>;
   inventory?: InputMaybe<Inventories_Bool_Exp>;
   inventory_id?: InputMaybe<Uuid_Comparison_Exp>;
   product?: InputMaybe<Products_Bool_Exp>;
@@ -156,19 +156,19 @@ export type Inventory_Products_Bool_Exp = {
   quantity?: InputMaybe<Int_Comparison_Exp>;
 };
 
-/** unique or primary key constraints on table "inventory_products" */
-export enum Inventory_Products_Constraint {
+/** unique or primary key constraints on table "inventory_items" */
+export enum Inventory_Items_Constraint {
   /** unique or primary key constraint */
   InventoryProductsPkey = 'inventory_products_pkey'
 }
 
-/** input type for incrementing numeric columns in table "inventory_products" */
-export type Inventory_Products_Inc_Input = {
+/** input type for incrementing numeric columns in table "inventory_items" */
+export type Inventory_Items_Inc_Input = {
   quantity?: InputMaybe<Scalars['Int']>;
 };
 
-/** input type for inserting data into table "inventory_products" */
-export type Inventory_Products_Insert_Input = {
+/** input type for inserting data into table "inventory_items" */
+export type Inventory_Items_Insert_Input = {
   inventory?: InputMaybe<Inventories_Obj_Rel_Insert_Input>;
   inventory_id?: InputMaybe<Scalars['uuid']>;
   product?: InputMaybe<Products_Obj_Rel_Insert_Input>;
@@ -176,24 +176,24 @@ export type Inventory_Products_Insert_Input = {
   quantity?: InputMaybe<Scalars['Int']>;
 };
 
-/** response of any mutation on the table "inventory_products" */
-export type Inventory_Products_Mutation_Response = {
-  __typename?: 'inventory_products_mutation_response';
+/** response of any mutation on the table "inventory_items" */
+export type Inventory_Items_Mutation_Response = {
+  __typename?: 'inventory_items_mutation_response';
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int'];
   /** data from the rows affected by the mutation */
-  returning: Array<Inventory_Products>;
+  returning: Array<Inventory_Items>;
 };
 
-/** on_conflict condition type for table "inventory_products" */
-export type Inventory_Products_On_Conflict = {
-  constraint: Inventory_Products_Constraint;
-  update_columns?: Array<Inventory_Products_Update_Column>;
-  where?: InputMaybe<Inventory_Products_Bool_Exp>;
+/** on_conflict condition type for table "inventory_items" */
+export type Inventory_Items_On_Conflict = {
+  constraint: Inventory_Items_Constraint;
+  update_columns?: Array<Inventory_Items_Update_Column>;
+  where?: InputMaybe<Inventory_Items_Bool_Exp>;
 };
 
-/** Ordering options when selecting data from "inventory_products". */
-export type Inventory_Products_Order_By = {
+/** Ordering options when selecting data from "inventory_items". */
+export type Inventory_Items_Order_By = {
   inventory?: InputMaybe<Inventories_Order_By>;
   inventory_id?: InputMaybe<Order_By>;
   product?: InputMaybe<Products_Order_By>;
@@ -201,14 +201,14 @@ export type Inventory_Products_Order_By = {
   quantity?: InputMaybe<Order_By>;
 };
 
-/** primary key columns input for table: inventory_products */
-export type Inventory_Products_Pk_Columns_Input = {
+/** primary key columns input for table: inventory_items */
+export type Inventory_Items_Pk_Columns_Input = {
   inventory_id: Scalars['uuid'];
   product_id: Scalars['uuid'];
 };
 
-/** select columns of table "inventory_products" */
-export enum Inventory_Products_Select_Column {
+/** select columns of table "inventory_items" */
+export enum Inventory_Items_Select_Column {
   /** column name */
   InventoryId = 'inventory_id',
   /** column name */
@@ -217,13 +217,13 @@ export enum Inventory_Products_Select_Column {
   Quantity = 'quantity'
 }
 
-/** input type for updating data in table "inventory_products" */
-export type Inventory_Products_Set_Input = {
+/** input type for updating data in table "inventory_items" */
+export type Inventory_Items_Set_Input = {
   quantity?: InputMaybe<Scalars['Int']>;
 };
 
-/** update columns of table "inventory_products" */
-export enum Inventory_Products_Update_Column {
+/** update columns of table "inventory_items" */
+export enum Inventory_Items_Update_Column {
   /** column name */
   Quantity = 'quantity'
 }
@@ -231,10 +231,10 @@ export enum Inventory_Products_Update_Column {
 /** mutation root */
 export type Mutation_Root = {
   __typename?: 'mutation_root';
-  /** delete data from the table: "inventory_products" */
-  delete_inventory_products?: Maybe<Inventory_Products_Mutation_Response>;
-  /** delete single row from the table: "inventory_products" */
-  delete_inventory_products_by_pk?: Maybe<Inventory_Products>;
+  /** delete data from the table: "inventory_items" */
+  delete_inventory_items?: Maybe<Inventory_Items_Mutation_Response>;
+  /** delete single row from the table: "inventory_items" */
+  delete_inventory_items_by_pk?: Maybe<Inventory_Items>;
   /** delete data from the table: "products" */
   delete_products?: Maybe<Products_Mutation_Response>;
   /** delete single row from the table: "products" */
@@ -243,18 +243,18 @@ export type Mutation_Root = {
   insert_inventories?: Maybe<Inventories_Mutation_Response>;
   /** insert a single row into the table: "inventories" */
   insert_inventories_one?: Maybe<Inventories>;
-  /** insert data into the table: "inventory_products" */
-  insert_inventory_products?: Maybe<Inventory_Products_Mutation_Response>;
-  /** insert a single row into the table: "inventory_products" */
-  insert_inventory_products_one?: Maybe<Inventory_Products>;
+  /** insert data into the table: "inventory_items" */
+  insert_inventory_items?: Maybe<Inventory_Items_Mutation_Response>;
+  /** insert a single row into the table: "inventory_items" */
+  insert_inventory_items_one?: Maybe<Inventory_Items>;
   /** insert data into the table: "products" */
   insert_products?: Maybe<Products_Mutation_Response>;
   /** insert a single row into the table: "products" */
   insert_products_one?: Maybe<Products>;
-  /** update data of the table: "inventory_products" */
-  update_inventory_products?: Maybe<Inventory_Products_Mutation_Response>;
-  /** update single row of the table: "inventory_products" */
-  update_inventory_products_by_pk?: Maybe<Inventory_Products>;
+  /** update data of the table: "inventory_items" */
+  update_inventory_items?: Maybe<Inventory_Items_Mutation_Response>;
+  /** update single row of the table: "inventory_items" */
+  update_inventory_items_by_pk?: Maybe<Inventory_Items>;
   /** update data of the table: "products" */
   update_products?: Maybe<Products_Mutation_Response>;
   /** update single row of the table: "products" */
@@ -263,13 +263,13 @@ export type Mutation_Root = {
 
 
 /** mutation root */
-export type Mutation_RootDelete_Inventory_ProductsArgs = {
-  where: Inventory_Products_Bool_Exp;
+export type Mutation_RootDelete_Inventory_ItemsArgs = {
+  where: Inventory_Items_Bool_Exp;
 };
 
 
 /** mutation root */
-export type Mutation_RootDelete_Inventory_Products_By_PkArgs = {
+export type Mutation_RootDelete_Inventory_Items_By_PkArgs = {
   inventory_id: Scalars['uuid'];
   product_id: Scalars['uuid'];
 };
@@ -300,16 +300,16 @@ export type Mutation_RootInsert_Inventories_OneArgs = {
 
 
 /** mutation root */
-export type Mutation_RootInsert_Inventory_ProductsArgs = {
-  objects: Array<Inventory_Products_Insert_Input>;
-  on_conflict?: InputMaybe<Inventory_Products_On_Conflict>;
+export type Mutation_RootInsert_Inventory_ItemsArgs = {
+  objects: Array<Inventory_Items_Insert_Input>;
+  on_conflict?: InputMaybe<Inventory_Items_On_Conflict>;
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_Inventory_Products_OneArgs = {
-  object: Inventory_Products_Insert_Input;
-  on_conflict?: InputMaybe<Inventory_Products_On_Conflict>;
+export type Mutation_RootInsert_Inventory_Items_OneArgs = {
+  object: Inventory_Items_Insert_Input;
+  on_conflict?: InputMaybe<Inventory_Items_On_Conflict>;
 };
 
 
@@ -328,18 +328,18 @@ export type Mutation_RootInsert_Products_OneArgs = {
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Inventory_ProductsArgs = {
-  _inc?: InputMaybe<Inventory_Products_Inc_Input>;
-  _set?: InputMaybe<Inventory_Products_Set_Input>;
-  where: Inventory_Products_Bool_Exp;
+export type Mutation_RootUpdate_Inventory_ItemsArgs = {
+  _inc?: InputMaybe<Inventory_Items_Inc_Input>;
+  _set?: InputMaybe<Inventory_Items_Set_Input>;
+  where: Inventory_Items_Bool_Exp;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Inventory_Products_By_PkArgs = {
-  _inc?: InputMaybe<Inventory_Products_Inc_Input>;
-  _set?: InputMaybe<Inventory_Products_Set_Input>;
-  pk_columns: Inventory_Products_Pk_Columns_Input;
+export type Mutation_RootUpdate_Inventory_Items_By_PkArgs = {
+  _inc?: InputMaybe<Inventory_Items_Inc_Input>;
+  _set?: InputMaybe<Inventory_Items_Set_Input>;
+  pk_columns: Inventory_Items_Pk_Columns_Input;
 };
 
 
@@ -488,10 +488,10 @@ export type Query_Root = {
   inventories: Array<Inventories>;
   /** fetch data from the table: "inventories" using primary key columns */
   inventories_by_pk?: Maybe<Inventories>;
-  /** fetch data from the table: "inventory_products" */
-  inventory_products: Array<Inventory_Products>;
-  /** fetch data from the table: "inventory_products" using primary key columns */
-  inventory_products_by_pk?: Maybe<Inventory_Products>;
+  /** fetch data from the table: "inventory_items" */
+  inventory_items: Array<Inventory_Items>;
+  /** fetch data from the table: "inventory_items" using primary key columns */
+  inventory_items_by_pk?: Maybe<Inventory_Items>;
   /** fetch data from the table: "products" */
   products: Array<Products>;
   /** fetch data from the table: "products" using primary key columns */
@@ -517,16 +517,16 @@ export type Query_RootInventories_By_PkArgs = {
 };
 
 
-export type Query_RootInventory_ProductsArgs = {
-  distinct_on?: InputMaybe<Array<Inventory_Products_Select_Column>>;
+export type Query_RootInventory_ItemsArgs = {
+  distinct_on?: InputMaybe<Array<Inventory_Items_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
-  order_by?: InputMaybe<Array<Inventory_Products_Order_By>>;
-  where?: InputMaybe<Inventory_Products_Bool_Exp>;
+  order_by?: InputMaybe<Array<Inventory_Items_Order_By>>;
+  where?: InputMaybe<Inventory_Items_Bool_Exp>;
 };
 
 
-export type Query_RootInventory_Products_By_PkArgs = {
+export type Query_RootInventory_Items_By_PkArgs = {
   inventory_id: Scalars['uuid'];
   product_id: Scalars['uuid'];
 };
@@ -565,10 +565,10 @@ export type Subscription_Root = {
   inventories: Array<Inventories>;
   /** fetch data from the table: "inventories" using primary key columns */
   inventories_by_pk?: Maybe<Inventories>;
-  /** fetch data from the table: "inventory_products" */
-  inventory_products: Array<Inventory_Products>;
-  /** fetch data from the table: "inventory_products" using primary key columns */
-  inventory_products_by_pk?: Maybe<Inventory_Products>;
+  /** fetch data from the table: "inventory_items" */
+  inventory_items: Array<Inventory_Items>;
+  /** fetch data from the table: "inventory_items" using primary key columns */
+  inventory_items_by_pk?: Maybe<Inventory_Items>;
   /** fetch data from the table: "products" */
   products: Array<Products>;
   /** fetch data from the table: "products" using primary key columns */
@@ -594,16 +594,16 @@ export type Subscription_RootInventories_By_PkArgs = {
 };
 
 
-export type Subscription_RootInventory_ProductsArgs = {
-  distinct_on?: InputMaybe<Array<Inventory_Products_Select_Column>>;
+export type Subscription_RootInventory_ItemsArgs = {
+  distinct_on?: InputMaybe<Array<Inventory_Items_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
-  order_by?: InputMaybe<Array<Inventory_Products_Order_By>>;
-  where?: InputMaybe<Inventory_Products_Bool_Exp>;
+  order_by?: InputMaybe<Array<Inventory_Items_Order_By>>;
+  where?: InputMaybe<Inventory_Items_Bool_Exp>;
 };
 
 
-export type Subscription_RootInventory_Products_By_PkArgs = {
+export type Subscription_RootInventory_Items_By_PkArgs = {
   inventory_id: Scalars['uuid'];
   product_id: Scalars['uuid'];
 };
