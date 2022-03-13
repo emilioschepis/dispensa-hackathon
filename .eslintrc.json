@@ -16,7 +16,8 @@
     "simple-import-sort/imports": "warn",
     "simple-import-sort/exports": "warn",
     "@typescript-eslint/ban-types": "off",
-    "no-empty-pattern": "off"
+    "no-empty-pattern": "off",
+    "react/self-closing-comp": "off"
   },
   "ignorePatterns": ["src/generated"]
 }

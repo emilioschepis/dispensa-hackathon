@@ -30,5 +30,25 @@
       "export default ${1}Screen;",
       ""
     ]
+  },
+  "Component": {
+    "scope": "typescriptreact",
+    "prefix": "component",
+    "body": [
+      "import { StyleSheet, View } from \"react-native\";",
+      "",
+      "type Props = {};",
+      "",
+      "const ${1:$TM_FILENAME_BASE} = ({}: Props) => {",
+      "  return <View style={styles.container}>$0</View>;",
+      "};",
+      "",
+      "const styles = StyleSheet.create({",
+      "  container: {},",
+      "});",
+      "",
+      "export default ${1};",
+      ""
+    ]
   }
 }
