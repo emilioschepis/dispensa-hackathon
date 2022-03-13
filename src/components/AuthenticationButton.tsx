@@ -1,6 +1,7 @@
 import { exchangeCodeAsync, makeRedirectUri, useAuthRequest } from "expo-auth-session";
 import { Button, Platform } from "react-native";
 
+import { useAuth } from "../state/AuthContext";
 import { Auth0 } from "../utils/auth0Utils";
 import { saveAccessToken, saveRefreshToken } from "../utils/authUtils";
 
@@ -10,6 +11,7 @@ const useProxy = Platform.select({ web: false, default: true });
 const redirectUri = makeRedirectUri({ useProxy });
 
 const AuthenticationButton = ({}: Props) => {
+  const { dispatch } = useAuth();
   const [request, , promptAsync] = useAuthRequest(
     {
       redirectUri,
@@ -54,6 +56,8 @@ const AuthenticationButton = ({}: Props) => {
 
     await saveAccessToken(tokens.accessToken);
     await saveRefreshToken(tokens.refreshToken!);
+
+    dispatch({ type: "setAuthenticated" });
   }
 
   return <Button disabled={!request} title="Login" onPress={authenticate} />;
