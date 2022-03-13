@@ -13,8 +13,8 @@ export type MainStackParamList = {
   Home: undefined;
   Item: { productId: string };
   Search: undefined;
-  CreateProduct: { name?: string };
-  UpdateProduct: { productId: string; name: string };
+  CreateProduct: { name?: string; code?: string };
+  UpdateProduct: { productId: string; name: string; code?: string | null };
 };
 
 const Stack = createNativeStackNavigator<MainStackParamList>();

@@ -35,6 +35,7 @@ const InventoryItem = ({ item }: Props) => {
             params: {
               productId: item.product.id,
               name: item.product.name,
+              code: item.product.code,
             },
           })
         }

@@ -7,18 +7,28 @@ import { SearchScreenProps } from "../screens/SearchScreen";
 
 type Props = {
   search: string;
+  code: string | null;
   products: ProductsQuery["products"];
 };
 
 const ITEM_HEIGHT = 64;
 
-const EmptySearchProduct = ({ search }: { search: Props["search"] }) => {
+const EmptySearchProduct = ({ search, code }: { search: Props["search"]; code: Props["code"] }) => {
   const navigation = useNavigation<SearchScreenProps["navigation"]>();
 
   return (
     <View style={styles.empty}>
-      <Text>There are no products matching this text.</Text>
-      <Button title="Create one now" onPress={() => navigation.replace("CreateProduct", { name: search })} />
+      {code ? (
+        <>
+          <Text>There are no products with this code.</Text>
+          <Button title="Create one now" onPress={() => navigation.replace("CreateProduct", { code })} />
+        </>
+      ) : (
+        <>
+          <Text>There are no products matching this text.</Text>
+          <Button title="Create one now" onPress={() => navigation.replace("CreateProduct", { name: search })} />
+        </>
+      )}
     </View>
   );
 };
@@ -35,10 +45,10 @@ const SearchProduct = ({ item }: { item: Props["products"][number] }) => {
   );
 };
 
-const SearchProductsList = ({ products: _products, search }: Props) => {
+const SearchProductsList = ({ products: _products, search, code }: Props) => {
   const products = useMemo(
-    () => _products.filter((p) => p.name.toLowerCase().includes(search.toLowerCase())),
-    [_products, search]
+    () => _products.filter((p) => (code ? p.code === code : p.name.toLowerCase().includes(search.toLowerCase()))),
+    [_products, search, code]
   );
 
   const renderItem = useCallback<ListRenderItem<Props["products"][number]>>(
@@ -51,7 +61,7 @@ const SearchProductsList = ({ products: _products, search }: Props) => {
       data={products}
       keyExtractor={(item) => item.id}
       renderItem={renderItem}
-      ListEmptyComponent={<EmptySearchProduct search={search} />}
+      ListEmptyComponent={<EmptySearchProduct search={search} code={code} />}
       style={styles.container}
       contentContainerStyle={styles.contentContainer}
       getItemLayout={(_, index) => ({ length: ITEM_HEIGHT, offset: ITEM_HEIGHT * index, index })}
