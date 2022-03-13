@@ -144,6 +144,33 @@ export type Inventory_Items = {
   quantity: Scalars['Int'];
 };
 
+/** order by aggregate values of table "inventory_items" */
+export type Inventory_Items_Aggregate_Order_By = {
+  avg?: InputMaybe<Inventory_Items_Avg_Order_By>;
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Inventory_Items_Max_Order_By>;
+  min?: InputMaybe<Inventory_Items_Min_Order_By>;
+  stddev?: InputMaybe<Inventory_Items_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<Inventory_Items_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<Inventory_Items_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<Inventory_Items_Sum_Order_By>;
+  var_pop?: InputMaybe<Inventory_Items_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<Inventory_Items_Var_Samp_Order_By>;
+  variance?: InputMaybe<Inventory_Items_Variance_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "inventory_items" */
+export type Inventory_Items_Arr_Rel_Insert_Input = {
+  data: Array<Inventory_Items_Insert_Input>;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Inventory_Items_On_Conflict>;
+};
+
+/** order by avg() on columns of table "inventory_items" */
+export type Inventory_Items_Avg_Order_By = {
+  quantity?: InputMaybe<Order_By>;
+};
+
 /** Boolean expression to filter rows from the table "inventory_items". All fields are combined with a logical 'AND'. */
 export type Inventory_Items_Bool_Exp = {
   _and?: InputMaybe<Array<Inventory_Items_Bool_Exp>>;
@@ -174,6 +201,20 @@ export type Inventory_Items_Insert_Input = {
   product?: InputMaybe<Products_Obj_Rel_Insert_Input>;
   product_id?: InputMaybe<Scalars['uuid']>;
   quantity?: InputMaybe<Scalars['Int']>;
+};
+
+/** order by max() on columns of table "inventory_items" */
+export type Inventory_Items_Max_Order_By = {
+  inventory_id?: InputMaybe<Order_By>;
+  product_id?: InputMaybe<Order_By>;
+  quantity?: InputMaybe<Order_By>;
+};
+
+/** order by min() on columns of table "inventory_items" */
+export type Inventory_Items_Min_Order_By = {
+  inventory_id?: InputMaybe<Order_By>;
+  product_id?: InputMaybe<Order_By>;
+  quantity?: InputMaybe<Order_By>;
 };
 
 /** response of any mutation on the table "inventory_items" */
@@ -222,11 +263,46 @@ export type Inventory_Items_Set_Input = {
   quantity?: InputMaybe<Scalars['Int']>;
 };
 
+/** order by stddev() on columns of table "inventory_items" */
+export type Inventory_Items_Stddev_Order_By = {
+  quantity?: InputMaybe<Order_By>;
+};
+
+/** order by stddev_pop() on columns of table "inventory_items" */
+export type Inventory_Items_Stddev_Pop_Order_By = {
+  quantity?: InputMaybe<Order_By>;
+};
+
+/** order by stddev_samp() on columns of table "inventory_items" */
+export type Inventory_Items_Stddev_Samp_Order_By = {
+  quantity?: InputMaybe<Order_By>;
+};
+
+/** order by sum() on columns of table "inventory_items" */
+export type Inventory_Items_Sum_Order_By = {
+  quantity?: InputMaybe<Order_By>;
+};
+
 /** update columns of table "inventory_items" */
 export enum Inventory_Items_Update_Column {
   /** column name */
   Quantity = 'quantity'
 }
+
+/** order by var_pop() on columns of table "inventory_items" */
+export type Inventory_Items_Var_Pop_Order_By = {
+  quantity?: InputMaybe<Order_By>;
+};
+
+/** order by var_samp() on columns of table "inventory_items" */
+export type Inventory_Items_Var_Samp_Order_By = {
+  quantity?: InputMaybe<Order_By>;
+};
+
+/** order by variance() on columns of table "inventory_items" */
+export type Inventory_Items_Variance_Order_By = {
+  quantity?: InputMaybe<Order_By>;
+};
 
 /** mutation root */
 export type Mutation_Root = {
@@ -385,8 +461,26 @@ export type Products = {
   code?: Maybe<Scalars['String']>;
   created_at: Scalars['timestamptz'];
   id: Scalars['uuid'];
+  /** fetch data from the table: "inventory_items" */
+  inventory_items: Array<Inventory_Items>;
   name: Scalars['String'];
   user_id: Scalars['String'];
+};
+
+
+/**
+ * A product is an object that can be put in the inventory.
+ *
+ *
+ * columns and relationships of "products"
+ *
+ */
+export type ProductsInventory_ItemsArgs = {
+  distinct_on?: InputMaybe<Array<Inventory_Items_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Inventory_Items_Order_By>>;
+  where?: InputMaybe<Inventory_Items_Bool_Exp>;
 };
 
 /** Boolean expression to filter rows from the table "products". All fields are combined with a logical 'AND'. */
@@ -397,6 +491,7 @@ export type Products_Bool_Exp = {
   code?: InputMaybe<String_Comparison_Exp>;
   created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   id?: InputMaybe<Uuid_Comparison_Exp>;
+  inventory_items?: InputMaybe<Inventory_Items_Bool_Exp>;
   name?: InputMaybe<String_Comparison_Exp>;
   user_id?: InputMaybe<String_Comparison_Exp>;
 };
@@ -413,6 +508,7 @@ export enum Products_Constraint {
 export type Products_Insert_Input = {
   /** This field represents the barcode of the product, if available. */
   code?: InputMaybe<Scalars['String']>;
+  inventory_items?: InputMaybe<Inventory_Items_Arr_Rel_Insert_Input>;
   name?: InputMaybe<Scalars['String']>;
 };
 
@@ -444,6 +540,7 @@ export type Products_Order_By = {
   code?: InputMaybe<Order_By>;
   created_at?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  inventory_items_aggregate?: InputMaybe<Inventory_Items_Aggregate_Order_By>;
   name?: InputMaybe<Order_By>;
   user_id?: InputMaybe<Order_By>;
 };
@@ -710,6 +807,15 @@ export type CreateInventoryMutationVariables = Exact<{ [key: string]: never; }>;
 
 export type CreateInventoryMutation = { __typename?: 'mutation_root', insert_inventories_one?: { __typename?: 'inventories', id: string, name: string } | null };
 
+export type CreateProductInInventoryMutationVariables = Exact<{
+  inventoryId: Scalars['uuid'];
+  name: Scalars['String'];
+  code?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type CreateProductInInventoryMutation = { __typename?: 'mutation_root', insert_inventory_items_one?: { __typename?: 'inventory_items', quantity: number, product: { __typename?: 'products', id: string, name: string, code?: string | null } } | null };
+
 export type InventoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -743,6 +849,7 @@ export type UsersQuery = { __typename?: 'query_root', users: Array<{ __typename?
 
 export const AddProductToInventoryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"AddProductToInventory"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"inventoryId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"productId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"insert_inventory_items_one"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"object"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"inventory_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"inventoryId"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"product_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"productId"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"quantity"}},{"kind":"Field","name":{"kind":"Name","value":"product"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"code"}}]}}]}}]}}]} as unknown as DocumentNode<AddProductToInventoryMutation, AddProductToInventoryMutationVariables>;
 export const CreateInventoryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateInventory"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"insert_inventories_one"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"object"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"name"},"value":{"kind":"StringValue","value":"default","block":false}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]} as unknown as DocumentNode<CreateInventoryMutation, CreateInventoryMutationVariables>;
+export const CreateProductInInventoryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateProductInInventory"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"inventoryId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"name"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"code"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"insert_inventory_items_one"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"object"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"inventory_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"inventoryId"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"product"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"data"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"name"},"value":{"kind":"Variable","name":{"kind":"Name","value":"name"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"code"},"value":{"kind":"Variable","name":{"kind":"Name","value":"code"}}}]}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"quantity"}},{"kind":"Field","name":{"kind":"Name","value":"product"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"code"}}]}}]}}]}}]} as unknown as DocumentNode<CreateProductInInventoryMutation, CreateProductInInventoryMutationVariables>;
 export const InventoriesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Inventories"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"inventories"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"1"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]} as unknown as DocumentNode<InventoriesQuery, InventoriesQueryVariables>;
 export const InventoryItemDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"InventoryItem"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"inventoryId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"productId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"item"},"name":{"kind":"Name","value":"inventory_items_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"inventory_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"inventoryId"}}},{"kind":"Argument","name":{"kind":"Name","value":"product_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"productId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"quantity"}},{"kind":"Field","name":{"kind":"Name","value":"product"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"code"}}]}}]}}]}}]} as unknown as DocumentNode<InventoryItemQuery, InventoryItemQueryVariables>;
 export const ItemsInInventoryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ItemsInInventory"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"inventoryId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"items"},"name":{"kind":"Name","value":"inventory_items"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"inventory_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"inventoryId"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"quantity"}},{"kind":"Field","name":{"kind":"Name","value":"product"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"code"}}]}}]}}]}}]} as unknown as DocumentNode<ItemsInInventoryQuery, ItemsInInventoryQueryVariables>;

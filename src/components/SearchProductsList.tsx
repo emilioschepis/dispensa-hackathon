@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import { useCallback, useMemo } from "react";
-import { FlatList, ListRenderItem, Pressable, StyleSheet, Text, View } from "react-native";
+import { Button, FlatList, ListRenderItem, Pressable, StyleSheet, Text, View } from "react-native";
 
 import { ProductsQuery } from "../generated/graphql";
 import { SearchScreenProps } from "../screens/SearchScreen";
@@ -12,10 +12,13 @@ type Props = {
 
 const ITEM_HEIGHT = 64;
 
-const EmptySearchProduct = () => {
+const EmptySearchProduct = ({ search }: { search: Props["search"] }) => {
+  const navigation = useNavigation<SearchScreenProps["navigation"]>();
+
   return (
     <View style={styles.empty}>
       <Text>There are no products matching this text.</Text>
+      <Button title="Create one now" onPress={() => navigation.replace("CreateProduct", { name: search })} />
     </View>
   );
 };
@@ -48,7 +51,7 @@ const SearchProductsList = ({ products: _products, search }: Props) => {
       data={products}
       keyExtractor={(item) => item.id}
       renderItem={renderItem}
-      ListEmptyComponent={EmptySearchProduct}
+      ListEmptyComponent={<EmptySearchProduct search={search} />}
       style={styles.container}
       contentContainerStyle={styles.contentContainer}
       getItemLayout={(_, index) => ({ length: ITEM_HEIGHT, offset: ITEM_HEIGHT * index, index })}

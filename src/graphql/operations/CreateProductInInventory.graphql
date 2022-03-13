@@ -1,0 +1,10 @@
+mutation CreateProductInInventory($inventoryId: uuid!, $name: String!, $code: String) {
+  insert_inventory_items_one(object: { inventory_id: $inventoryId, product: { data: { name: $name, code: $code } } }) {
+    quantity
+    product {
+      id
+      name
+      code
+    }
+  }
+}
