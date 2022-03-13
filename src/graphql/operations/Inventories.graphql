@@ -1,0 +1,6 @@
+query Inventories {
+  inventories(limit: 1) {
+    id
+    name
+  }
+}

@@ -1,0 +1,6 @@
+mutation CreateInventory {
+  insert_inventories_one(object: { name: "default" }) {
+    id
+    name
+  }
+}

@@ -1,11 +1,11 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import AuthScreen from "../../screens/AuthScreen";
-import HomeScreen from "../../screens/HomeScreen";
 import { useAuth } from "../../state/AuthContext";
+import MainStack from "./MainStack";
 
 export type RootStackParamList = {
-  Home: undefined;
+  Main: undefined;
   Auth: undefined;
 };
 
@@ -19,10 +19,10 @@ const RootStack = () => {
   }
 
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
       {auth.state.state === "authenticated" ? (
         <>
-          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Main" component={MainStack} />
         </>
       ) : (
         <>

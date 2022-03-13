@@ -1,25 +1,23 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
-import { useQuery } from "urql";
+import { StyleSheet, Text, View } from "react-native";
 
-import { UsersDocument } from "../generated/graphql";
-import { RootStackParamList } from "../navigation/navigators/RootStack";
+import { MainStackParamList } from "../navigation/navigators/MainStack";
+import { useInventoryId } from "../state/InventoryContext";
+import { useUserData } from "../state/UserContext";
 
-export type HomeScreenProps = NativeStackScreenProps<RootStackParamList, "Home">;
+export type HomeScreenProps = NativeStackScreenProps<MainStackParamList, "Home">;
 type Props = {} & HomeScreenProps;
 
 const HomeScreen = ({ navigation }: Props) => {
-  const [{ data, error, fetching }] = useQuery({ query: UsersDocument });
+  const username = useUserData().username;
+  const inventoryId = useInventoryId();
 
   return (
     <View style={styles.container}>
-      {error ? (
-        <Text>Could not load the user.</Text>
-      ) : fetching || !data ? (
-        <ActivityIndicator />
-      ) : (
-        <Text>Your username is {data.users[0].username}</Text>
-      )}
+      <Text>
+        Hi {username}, your inventory id is{"\n"}
+        {inventoryId}
+      </Text>
     </View>
   );
 };
