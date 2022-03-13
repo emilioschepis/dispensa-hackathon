@@ -1,0 +1,7 @@
+mutation UpdateProduct($productId: uuid!, $name: String, $code: String) {
+  update_products_by_pk(pk_columns: { id: $productId }, _set: { name: $name, code: $code }) {
+    id
+    name
+    code
+  }
+}

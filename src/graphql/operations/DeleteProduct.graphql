@@ -1,0 +1,7 @@
+mutation DeleteProduct($productId: uuid!) {
+  delete_products_by_pk(id: $productId) {
+    id
+    name
+    code
+  }
+}

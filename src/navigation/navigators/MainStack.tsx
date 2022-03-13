@@ -5,6 +5,7 @@ import CreateProductScreen from "../../screens/CreateProductScreen";
 import HomeScreen from "../../screens/HomeScreen";
 import ItemScreen from "../../screens/ItemScreen";
 import SearchScreen from "../../screens/SearchScreen";
+import UpdateProductScreen from "../../screens/UpdateProductScreen";
 import InventoryProvider from "../../state/InventoryContext";
 import UserProvider from "../../state/UserContext";
 
@@ -13,6 +14,7 @@ export type MainStackParamList = {
   Item: { productId: string };
   Search: undefined;
   CreateProduct: { name?: string };
+  UpdateProduct: { productId: string; name: string };
 };
 
 const Stack = createNativeStackNavigator<MainStackParamList>();
@@ -27,6 +29,7 @@ const MainStack = () => {
             <Stack.Screen name="Item" component={ItemScreen} />
             <Stack.Screen name="Search" component={SearchScreen} />
             <Stack.Screen name="CreateProduct" component={CreateProductScreen} />
+            <Stack.Screen name="UpdateProduct" component={UpdateProductScreen} />
           </Stack.Navigator>
         </InitializationGate>
       </InventoryProvider>

@@ -27,6 +27,18 @@ const InventoryItem = ({ item }: Props) => {
   return (
     <View style={styles.container}>
       <Text>{item.product.name}</Text>
+      <Button
+        title="Edit product"
+        onPress={() =>
+          navigation.navigate("Main", {
+            screen: "UpdateProduct",
+            params: {
+              productId: item.product.id,
+              name: item.product.name,
+            },
+          })
+        }
+      />
       <View style={styles.quantity}>
         <Button title="-" disabled={updating || deleting || quantity <= 0} onPress={() => setQuantity((q) => q - 1)} />
         <Text>{quantity}</Text>
