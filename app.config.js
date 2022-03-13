@@ -5,8 +5,9 @@ export default {
    * @type {import('@expo/config').ExpoConfig}
    */
   expo: {
-    name: "dispensa",
+    name: "Dispensa",
     slug: "dispensa",
+    owner: "emilioschepis",
     version: "1.0.0",
     scheme: "dispensa",
     orientation: "portrait",
