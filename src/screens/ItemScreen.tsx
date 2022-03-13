@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 import { useQuery } from "urql";
 
+import InventoryItem from "../components/InventoryItem";
 import ProductNotInInventory from "../components/ProductNotInInventory";
 import { InventoryItemDocument } from "../generated/graphql";
 import { MainStackParamList } from "../navigation/navigators/MainStack";
@@ -39,9 +40,7 @@ const ItemScreen = ({ navigation, route }: Props) => {
           onAddToInventory={() => refetch({ requestPolicy: "network-only" })}
         />
       ) : (
-        <Text>
-          {data.item.quantity}&times; {data.item.product.name}
-        </Text>
+        <InventoryItem item={data.item} />
       )}
     </View>
   );
