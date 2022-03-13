@@ -1,0 +1,10 @@
+mutation AddProductToInventory($inventoryId: uuid!, $productId: uuid!) {
+  insert_inventory_items_one(object: { inventory_id: $inventoryId, product_id: $productId }) {
+    quantity
+    product {
+      id
+      name
+      code
+    }
+  }
+}

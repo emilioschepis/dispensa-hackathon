@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 import { useQuery } from "urql";
 
+import ProductNotInInventory from "../components/ProductNotInInventory";
 import { InventoryItemDocument } from "../generated/graphql";
 import { MainStackParamList } from "../navigation/navigators/MainStack";
 import { useInventoryId } from "../state/InventoryContext";
@@ -12,7 +13,7 @@ type Props = {} & ItemScreenProps;
 
 const ItemScreen = ({ navigation, route }: Props) => {
   const inventoryId = useInventoryId();
-  const [{ fetching, error, data }] = useQuery({
+  const [{ fetching, error, data }, refetch] = useQuery({
     query: InventoryItemDocument,
     variables: {
       inventoryId,
@@ -33,7 +34,10 @@ const ItemScreen = ({ navigation, route }: Props) => {
       ) : fetching || !data ? (
         <ActivityIndicator />
       ) : !data.item ? (
-        <Text>This item is not in your inventory.</Text>
+        <ProductNotInInventory
+          productId={route.params.productId}
+          onAddToInventory={() => refetch({ requestPolicy: "network-only" })}
+        />
       ) : (
         <Text>
           {data.item.quantity}&times; {data.item.product.name}
