@@ -1,6 +1,7 @@
 name: Generate preview with EAS
 
 on:
+  workflow_dispatch:
   push:
     tags: [v*]
 

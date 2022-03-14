@@ -8,7 +8,7 @@ export default {
     name: "Dispensa",
     slug: "dispensa",
     owner: "emilioschepis",
-    version: "1.0.0",
+    version: process.env.npm_package_version,
     scheme: "dispensa",
     orientation: "portrait",
     icon: "./assets/icon.png",
