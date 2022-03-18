@@ -26,7 +26,7 @@ export default {
       infoPlist: {
         NSCameraUsageDescription: "We use the camera to allow you to scan product barcodes",
       },
-      buildNumber: 3,
+      buildNumber: "3",
       bundleIdentifier: "com.emilioschepis.dispensa",
     },
     android: {
