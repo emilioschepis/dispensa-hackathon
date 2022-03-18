@@ -1,10 +1,5 @@
 import "dotenv/config";
 
-function makeVersionNumber(packageVersion) {
-  const parts = packageVersion.split(".");
-  return parts[2] + parts[1] * 1000 + parts[0] * 1000000;
-}
-
 export default {
   /**
    * @type {import('@expo/config').ExpoConfig}
@@ -13,7 +8,7 @@ export default {
     name: "Dispensa",
     slug: "dispensa",
     owner: "emilioschepis",
-    version: process.env.npm_package_version,
+    version: "1.1.3",
     scheme: "dispensa",
     orientation: "portrait",
     icon: "./assets/icon.png",
@@ -31,7 +26,7 @@ export default {
       infoPlist: {
         NSCameraUsageDescription: "We use the camera to allow you to scan product barcodes",
       },
-      buildNumber: makeVersionNumber(process.env.npm_package_version),
+      buildNumber: 3,
       bundleIdentifier: "com.emilioschepis.dispensa",
     },
     android: {
@@ -41,7 +36,7 @@ export default {
       },
       permissions: ["CAMERA"],
       package: "com.emilioschepis.dispensa",
-      versionCode: makeVersionNumber(process.env.npm_package_version),
+      versionCode: 3,
     },
     web: {
       favicon: "./assets/favicon.png",
