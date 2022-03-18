@@ -13,6 +13,16 @@
     "production": {}
   },
   "submit": {
-    "production": {}
+    "production": {
+      "android": {
+        "serviceAccountKeyPath": "./serviceAccountKey.json",
+        "track": "beta"
+      },
+      "ios": {
+        "appleId": "emilio.schepis@icloud.com",
+        "ascAppId": "1615006217",
+        "appleTeamId": "9K45CQJ2EB"
+      }
+    }
   }
 }
