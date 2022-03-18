@@ -2,12 +2,10 @@ name: Generate preview with EAS
 
 on:
   workflow_dispatch:
-  push:
-    tags: [v*]
 
 jobs:
   android:
-    name: 🟢 Android
+    name: 🤖 Android
     runs-on: ubuntu-latest
 
     steps:
@@ -28,7 +26,7 @@ jobs:
       - name: Build on EAS
         run: eas build --platform android --profile preview --non-interactive
   ios:
-    name: 🔵 iOS
+    name: 🍎 iOS
     runs-on: ubuntu-latest
 
     steps:

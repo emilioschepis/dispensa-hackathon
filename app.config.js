@@ -1,5 +1,10 @@
 import "dotenv/config";
 
+function makeVersionNumber(packageVersion) {
+  const parts = packageVersion.split(".");
+  return parts[2] + parts[1] * 1000 + parts[0] * 1000000;
+}
+
 export default {
   /**
    * @type {import('@expo/config').ExpoConfig}
@@ -26,6 +31,7 @@ export default {
       infoPlist: {
         NSCameraUsageDescription: "We use the camera to allow you to scan product barcodes",
       },
+      buildNumber: makeVersionNumber(process.env.npm_package_version),
       bundleIdentifier: "com.emilioschepis.dispensa",
     },
     android: {
@@ -35,6 +41,7 @@ export default {
       },
       permissions: ["CAMERA"],
       package: "com.emilioschepis.dispensa",
+      versionCode: makeVersionNumber(process.env.npm_package_version),
     },
     web: {
       favicon: "./assets/favicon.png",
