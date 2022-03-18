@@ -1,14 +1,15 @@
 import { PressableProps } from "react-native";
 
+import DS from "../../style/DesignSystem";
 import Icon, { Props as IconProps } from "./Icon";
 import Pressable from "./Pressable";
 
 type Props = IconProps & PressableProps;
 
-const PressableIcon = ({ name, color, width, height, hitSlop = 10, ...rest }: Props) => {
+const PressableIcon = ({ name, color, width, disabled, height, hitSlop = 10, ...rest }: Props) => {
   return (
-    <Pressable hitSlop={hitSlop} {...rest}>
-      <Icon name={name} color={color} width={width} height={height} />
+    <Pressable disabled={disabled} hitSlop={hitSlop} {...rest}>
+      <Icon name={name} color={disabled ? DS.Colors.DISABLED : color} width={width} height={height} />
     </Pressable>
   );
 };

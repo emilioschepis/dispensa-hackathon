@@ -1,4 +1,5 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { BarCodeScanner } from "expo-barcode-scanner";
 import { useRef, useState } from "react";
 import { StyleSheet, TextInput, View } from "react-native";
 import { useMutation } from "urql";
@@ -21,8 +22,11 @@ const CreateProductScreen = ({ navigation, route }: Props) => {
   const [{ fetching }, _createProduct] = useMutation(CreateProductInInventoryDocument);
   const [name, setName] = useState(route.params.name ?? "");
   const [code, setCode] = useState(route.params.code ?? "");
+  const [status, requestPermission] = BarCodeScanner.usePermissions();
   const [scanning, setScanning] = useState(false);
   const inputRef = useRef<TextInput>(null);
+
+  const scannerBlocked = !status?.granted && !status?.canAskAgain;
 
   async function createProduct(name: string) {
     const result = await _createProduct({ inventoryId, name, code: code.length > 0 ? code : null });
@@ -46,10 +50,19 @@ const CreateProductScreen = ({ navigation, route }: Props) => {
         placeholder="Product code"
         rightIcon={
           <PressableIcon
+            disabled={scannerBlocked}
             name="BARCODE"
-            onPress={() => {
+            onPress={async () => {
               inputRef.current?.blur();
-              setScanning(true);
+
+              if (status?.granted) {
+                setScanning(true);
+              } else if (status?.canAskAgain) {
+                const newPermission = await requestPermission();
+                if (newPermission.granted) {
+                  setScanning(true);
+                }
+              }
             }}
           />
         }

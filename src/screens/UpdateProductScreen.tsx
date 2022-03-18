@@ -1,4 +1,5 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { BarCodeScanner } from "expo-barcode-scanner";
 import { useRef, useState } from "react";
 import { Alert, StyleSheet, TextInput, View } from "react-native";
 import { useMutation } from "urql";
@@ -20,8 +21,11 @@ const UpdateProductScreen = ({ navigation, route }: Props) => {
   const [{ fetching: deleting }, _deleteProduct] = useMutation(DeleteProductDocument);
   const [name, setName] = useState(route.params.name);
   const [code, setCode] = useState<string | null>(route.params.code ?? null);
+  const [status, requestPermission] = BarCodeScanner.usePermissions();
   const [scanning, setScanning] = useState(false);
   const inputRef = useRef<TextInput>(null);
+
+  const scannerBlocked = !status?.granted && !status?.canAskAgain;
 
   async function updateProduct(name: string, code: string | null) {
     const result = await _updateProduct({ productId: route.params.productId, name, code });
@@ -64,10 +68,19 @@ const UpdateProductScreen = ({ navigation, route }: Props) => {
             <PressableIcon name="CANCEL" onPress={() => setCode(null)} />
           ) : (
             <PressableIcon
+              disabled={scannerBlocked}
               name="BARCODE"
-              onPress={() => {
+              onPress={async () => {
                 inputRef.current?.blur();
-                setScanning(true);
+
+                if (status?.granted) {
+                  setScanning(true);
+                } else if (status?.canAskAgain) {
+                  const newPermission = await requestPermission();
+                  if (newPermission.granted) {
+                    setScanning(true);
+                  }
+                }
               }}
             />
           )

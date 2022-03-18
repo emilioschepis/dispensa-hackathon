@@ -1,4 +1,5 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { BarCodeScanner } from "expo-barcode-scanner";
 import { useRef, useState } from "react";
 import { ActivityIndicator, StyleSheet, TextInput, View } from "react-native";
 import { useQuery } from "urql";
@@ -18,9 +19,12 @@ type Props = {} & SearchScreenProps;
 const SearchScreen = ({ navigation }: Props) => {
   const [search, setSearch] = useState("");
   const [code, setCode] = useState<string | null>(null);
+  const [status, requestPermission] = BarCodeScanner.usePermissions();
   const [scanning, setScanning] = useState(false);
   const inputRef = useRef<TextInput>(null);
   const [{ fetching, error, data }] = useQuery({ query: ProductsDocument });
+
+  const scannerBlocked = !status?.granted && !status?.canAskAgain;
 
   return (
     <View style={styles.container}>
@@ -41,10 +45,19 @@ const SearchScreen = ({ navigation }: Props) => {
           placeholder="What are you looking for?"
           rightIcon={
             <PressableIcon
+              disabled={scannerBlocked}
               name="BARCODE"
-              onPress={() => {
+              onPress={async () => {
                 inputRef.current?.blur();
-                setScanning(true);
+
+                if (status?.granted) {
+                  setScanning(true);
+                } else if (status?.canAskAgain) {
+                  const newPermission = await requestPermission();
+                  if (newPermission.granted) {
+                    setScanning(true);
+                  }
+                }
               }}
             />
           }
