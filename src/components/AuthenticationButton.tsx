@@ -1,9 +1,10 @@
 import { exchangeCodeAsync, makeRedirectUri, useAuthRequest } from "expo-auth-session";
-import { Button, Platform } from "react-native";
+import { Platform } from "react-native";
 
 import { useAuth } from "../state/AuthContext";
 import { Auth0 } from "../utils/auth0Utils";
 import { saveAccessToken, saveRefreshToken } from "../utils/authUtils";
+import Button from "./core/Button";
 
 type Props = {};
 

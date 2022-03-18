@@ -1,10 +1,10 @@
 query ItemsInInventory($inventoryId: uuid!) {
-  items: inventory_items(where: { inventory_id: { _eq: $inventoryId } }) {
-    quantity
-    product {
-      id
-      name
-      code
+  products(order_by: { name: asc }) {
+    id
+    name
+    code
+    inventory_items(where: { inventory_id: { _eq: $inventoryId } }) {
+      quantity
     }
   }
 }

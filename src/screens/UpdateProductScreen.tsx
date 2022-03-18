@@ -1,11 +1,16 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useRef, useState } from "react";
-import { Button, StyleSheet, TextInput, View } from "react-native";
+import { Alert, StyleSheet, TextInput, View } from "react-native";
 import { useMutation } from "urql";
 
+import Button from "../components/core/Button";
+import Input from "../components/core/Input";
+import PressableIcon from "../components/core/PressableIcon";
+import Spacer from "../components/core/Spacer";
 import Scanner from "../components/Scanner";
 import { DeleteProductDocument, UpdateProductDocument } from "../generated/graphql";
 import { MainStackParamList } from "../navigation/navigators/MainStack";
+import DS from "../style/DesignSystem";
 
 export type UpdateProductScreenProps = NativeStackScreenProps<MainStackParamList, "UpdateProduct">;
 type Props = {} & UpdateProductScreenProps;
@@ -19,7 +24,6 @@ const UpdateProductScreen = ({ navigation, route }: Props) => {
   const inputRef = useRef<TextInput>(null);
 
   async function updateProduct(name: string, code: string | null) {
-    // TODO: add product code when updating a product
     const result = await _updateProduct({ productId: route.params.productId, name, code });
     if (result.data && navigation.canGoBack()) {
       navigation.goBack();
@@ -33,28 +37,56 @@ const UpdateProductScreen = ({ navigation, route }: Props) => {
     }
   }
 
+  function confirmDeleteProduct() {
+    Alert.alert("Deleting product", `Do you want to delete "${route.params.name}"? This action cannot be undone.`, [
+      {
+        text: "Delete",
+        style: "destructive",
+        onPress: deleteProduct,
+      },
+      {
+        text: "Cancel",
+        style: "cancel",
+      },
+    ]);
+  }
+
   return (
     <View style={styles.container}>
-      <TextInput ref={inputRef} autoFocus value={name} onChangeText={setName} placeholder="Name" style={styles.input} />
-      <TextInput value={code ?? undefined} editable={false} placeholder="Code" style={styles.input} />
-      {code ? (
-        <Button title="Remove" disabled={updating || deleting} onPress={() => setCode(null)} />
-      ) : (
-        <Button
-          title="Scan"
-          disabled={updating || deleting}
-          onPress={() => {
-            inputRef.current?.blur();
-            setScanning(true);
-          }}
-        />
-      )}
+      <Input ref={inputRef} autoFocus value={name} onChangeText={setName} placeholder="Name" />
+      <Spacer height={DS.Spacings.LG} />
+      <Input
+        value={code ?? undefined}
+        editable={false}
+        placeholder="Code"
+        rightIcon={
+          code ? (
+            <PressableIcon name="CANCEL" onPress={() => setCode(null)} />
+          ) : (
+            <PressableIcon
+              name="BARCODE"
+              onPress={() => {
+                inputRef.current?.blur();
+                setScanning(true);
+              }}
+            />
+          )
+        }
+      />
+      <Spacer height={DS.Spacings.LG} />
+
       <Button
-        title="Update"
+        title="Save"
         disabled={updating || deleting || name.length < 1}
         onPress={() => updateProduct(name, code)}
       />
-      <Button title="Delete" disabled={updating || deleting} onPress={() => deleteProduct()} />
+      <Spacer height={DS.Spacings.SM} />
+      <Button
+        title="Delete"
+        variant="DESTRUCTIVE"
+        disabled={updating || deleting}
+        onPress={() => confirmDeleteProduct()}
+      />
       {scanning ? (
         <Scanner
           onBarCodeScanned={(data) => {
@@ -75,11 +107,7 @@ const UpdateProductScreen = ({ navigation, route }: Props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
-  },
-  input: {
-    padding: 16,
-    backgroundColor: "white",
+    padding: DS.Spacings.XL,
   },
 });
 

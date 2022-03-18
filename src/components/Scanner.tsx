@@ -1,6 +1,11 @@
 import { BarCodeEvent, BarCodeScanner } from "expo-barcode-scanner";
 import { useState } from "react";
-import { Button, StyleSheet, View } from "react-native";
+import { StyleSheet, useWindowDimensions, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+
+import DS from "../style/DesignSystem";
+import Icon from "./core/Icon";
+import Pressable from "./core/Pressable";
 
 type Props = {
   onBarCodeScanned: (data: string) => void;
@@ -19,6 +24,7 @@ const BAR_CODE_TYPES = [
 
 // TODO: Handle camera permissions
 const Scanner = ({ onBarCodeScanned: _onBarCodeScanned, onClose }: Props) => {
+  const dimensions = useWindowDimensions();
   const [scanning, setScanning] = useState(true);
 
   function onBarCodeScanned(event: BarCodeEvent) {
@@ -27,16 +33,29 @@ const Scanner = ({ onBarCodeScanned: _onBarCodeScanned, onClose }: Props) => {
   }
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <BarCodeScanner
         style={StyleSheet.absoluteFillObject}
         onBarCodeScanned={scanning ? onBarCodeScanned : undefined}
         barCodeTypes={BAR_CODE_TYPES}
       />
-      <View style={styles.close}>
-        <Button title="Close" onPress={() => onClose()} />
+      <View style={styles.watermark}>
+        <Icon
+          name="BARCODE"
+          color="rgba(255, 255, 255, 0.2)"
+          width={dimensions.width / 2}
+          height={dimensions.width / 2}
+        />
       </View>
-    </View>
+
+      <View style={styles.close}>
+        <Pressable onPress={onClose}>
+          <View style={styles.watermarkBackground}>
+            <Icon name="CANCEL" />
+          </View>
+        </Pressable>
+      </View>
+    </SafeAreaView>
   );
 };
 
@@ -50,11 +69,30 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(0, 0, 0, 0.5)",
     zIndex: 1,
   },
+  watermark: {
+    position: "absolute",
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  watermarkBackground: {
+    backgroundColor: DS.Colors.WHITE,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 9999,
+    padding: DS.Spacings.XL,
+  },
   close: {
     position: "absolute",
-    top: 16,
-    right: 16,
+    bottom: 48,
+    left: 0,
+    right: 0,
     zIndex: 2,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 

@@ -1,10 +1,11 @@
 import { NavigationContainer } from "@react-navigation/native";
 
+import AppTheme from "../style/AppTheme";
 import RootStack, { RootStackParamList } from "./navigators/RootStack";
 
 const Navigation = () => {
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={AppTheme}>
       <RootStack />
     </NavigationContainer>
   );
