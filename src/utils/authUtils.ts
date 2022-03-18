@@ -34,18 +34,22 @@ export async function refreshAccessToken(): Promise<string | null> {
   const refreshToken = await SecureStorage.getItemAsync(AsyncStorageKey.REFRESH_TOKEN);
   if (!refreshToken) return null;
 
-  const tokens = await AuthSession.refreshAsync(
-    {
-      refreshToken,
-      clientId: Auth0.CLIENT_ID,
-      scopes: Auth0.SCOPES,
-    },
-    {
-      tokenEndpoint: Auth0.ENDPOINT + "/oauth/token",
-    }
-  );
+  try {
+    const tokens = await AuthSession.refreshAsync(
+      {
+        refreshToken,
+        clientId: Auth0.CLIENT_ID,
+        scopes: Auth0.SCOPES,
+      },
+      {
+        tokenEndpoint: Auth0.ENDPOINT + "/oauth/token",
+      }
+    );
 
-  return tokens.accessToken;
+    return tokens.accessToken;
+  } catch (error) {
+    return null;
+  }
 }
 
 /**
@@ -72,6 +76,15 @@ export async function saveAccessToken(token: string): Promise<boolean> {
 export async function saveRefreshToken(token: string): Promise<boolean> {
   try {
     await SecureStorage.setItemAsync(AsyncStorageKey.REFRESH_TOKEN, token);
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
+
+export async function removeRefreshToken(): Promise<boolean> {
+  try {
+    await SecureStorage.deleteItemAsync(AsyncStorageKey.REFRESH_TOKEN);
     return true;
   } catch (error) {
     return false;

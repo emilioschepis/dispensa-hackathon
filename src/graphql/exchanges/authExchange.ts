@@ -1,7 +1,13 @@
 import { authExchange as _authExchange } from "@urql/exchange-auth";
 import { makeOperation, Operation } from "urql";
 
-import { getAccessToken, refreshAccessToken, verifyAccessToken } from "../../utils/authUtils";
+import {
+  getAccessToken,
+  refreshAccessToken,
+  removeRefreshToken,
+  saveAccessToken,
+  verifyAccessToken,
+} from "../../utils/authUtils";
 
 type AuthState = { token: string };
 
@@ -17,8 +23,12 @@ async function getAuth({ authState }: { authState: AuthState | null }): Promise<
 
   const token = await refreshAccessToken();
   if (token) {
+    await saveAccessToken(token);
+
     return { token };
   }
+
+  await removeRefreshToken();
 
   return null;
 }
