@@ -40,6 +40,18 @@ const EmptySearchProduct = ({ search, code }: { search: Props["search"]; code: P
   );
 };
 
+const ListHeader = ({ search }: { search: Props["search"] }) => {
+  const navigation = useNavigation<SearchScreenProps["navigation"]>();
+
+  return (
+    <Button
+      variant="SECONDARY"
+      title="Create new product"
+      onPress={() => navigation.replace("CreateProduct", { name: search })}
+    />
+  );
+};
+
 const SearchProduct = ({ item, search }: { item: Props["products"][number]; search: Props["search"] }) => {
   const navigation = useNavigation<SearchScreenProps["navigation"]>();
 
@@ -83,6 +95,7 @@ const SearchProductsList = ({ products: _products, search, code }: Props) => {
       style={styles.container}
       contentContainerStyle={styles.contentContainer}
       getItemLayout={(_, index) => ({ length: ITEM_HEIGHT, offset: ITEM_HEIGHT * index, index })}
+      ListHeaderComponent={products.length > 0 ? <ListHeader search={search} /> : null}
       ItemSeparatorComponent={ItemSeparator}
       showsVerticalScrollIndicator={false}
       onScrollBeginDrag={Keyboard.dismiss}
@@ -93,7 +106,7 @@ const SearchProductsList = ({ products: _products, search, code }: Props) => {
 const styles = StyleSheet.create({
   container: {},
   contentContainer: {
-    padding: DS.Spacings.SM,
+    marginTop: DS.Spacings.MD,
     backgroundColor: DS.Colors.WHITE,
     borderRadius: 8,
     justifyContent: "center",
