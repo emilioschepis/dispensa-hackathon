@@ -46,8 +46,13 @@ export async function refreshAccessToken(): Promise<string | null> {
       }
     );
 
+    if (tokens.refreshToken) {
+      await SecureStorage.setItemAsync(AsyncStorageKey.REFRESH_TOKEN, tokens.refreshToken);
+    }
+
     return tokens.accessToken;
   } catch (error) {
+    await removeRefreshToken();
     return null;
   }
 }
