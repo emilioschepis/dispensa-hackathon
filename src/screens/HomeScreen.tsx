@@ -1,4 +1,5 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { useMemo } from "react";
 import { ActivityIndicator, StyleSheet, useWindowDimensions, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useQuery } from "urql";
@@ -21,7 +22,15 @@ const HomeScreen = ({ navigation }: Props) => {
   const width = useWindowDimensions().width;
   const inventoryId = useInventoryId();
   const username = useUserData().username;
-  const [{ fetching, error, data }] = useQuery({ query: ItemsInInventoryDocument, variables: { inventoryId } });
+
+  // When the network request returns an empty list, it does not have a __typename, so cache invalidation does not work
+  // https://formidable.com/open-source/urql/docs/basics/document-caching/#adding-typenames
+  const context = useMemo(() => ({ additionalTypenames: ["products"] }), []);
+  const [{ fetching, error, data }] = useQuery({
+    query: ItemsInInventoryDocument,
+    variables: { inventoryId },
+    context,
+  });
 
   return (
     <SafeAreaView edges={["top"]} style={styles.safeArea}>
