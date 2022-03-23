@@ -8,7 +8,7 @@ export default {
     name: "Dispensa",
     slug: "dispensa",
     owner: "emilioschepis",
-    version: "1.1.3",
+    version: "1.1.4",
     scheme: "dispensa",
     orientation: "portrait",
     icon: "./assets/icon.png",
@@ -26,7 +26,7 @@ export default {
       infoPlist: {
         NSCameraUsageDescription: "We use the camera to allow you to scan product barcodes",
       },
-      buildNumber: "3",
+      buildNumber: "4",
       bundleIdentifier: "com.emilioschepis.dispensa",
     },
     android: {
@@ -36,7 +36,7 @@ export default {
       },
       permissions: ["CAMERA"],
       package: "com.emilioschepis.dispensa",
-      versionCode: 3,
+      versionCode: 4,
     },
     web: {
       favicon: "./assets/favicon.png",
