@@ -14,6 +14,12 @@ You can try out the Open Beta right now!
 
 🤖 [Beta Track for Android](https://play.google.com/store/apps/details?id=com.emilioschepis.dispensa)
 
+## Screenshots
+
+Dispensa is a very simple and minimalistic app *(mostly because it was made in two weeks...)*
+
+<img src="https://user-images.githubusercontent.com/16031715/159999077-b45f8235-5de5-4c36-8a8e-1130d540cdc0.png" alt="Home screen" width="200"> <img src="https://user-images.githubusercontent.com/16031715/159999085-62a875fc-6156-4e6c-91c5-73c4984ce810.png" alt="Search screen" width="200"> <img src="https://user-images.githubusercontent.com/16031715/159999087-58950917-9d11-426c-8db4-5940e23be42e.png" alt="Product screen" width="200">
+
 ## Tech stack
 
 Even though the app is simple, it is built on modern technologies and is ready to be scaled and improved without problems.
